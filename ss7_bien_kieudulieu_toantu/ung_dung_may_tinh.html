@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ungdungmaytinh</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td colspan="2"><input id="number1" type="number"></td>
+        <td colspan="2"><input id="number2" type="number"></td><br>
+    </tr>
+    <tr>
+        <td><button id="plus" onclick="cong()">addition(+)</button></td>
+        <td><button id="minus" onclick="tru()">subtraction(-)</button></td>
+        <td><button id="mul" onclick="nhan()">multiplication(x)</button></td>
+        <td><button id="divi" onclick="chia()">division(/)</button></td>
+    </tr>
+</table>
+<p id="kq"></p>
+</body>
+<script>
+    document.getElementById("plus").onclick=function cong(){
+    let num1= +document.getElementById("number1").value;
+    let num2= +document.getElementById("number2").value;
+    let result= num1+num2;
+    document.getElementById("kq").innerHTML=result}
+</script>
+<script>
+    document.getElementById("minus").onclick=function tru(){
+        let num1= +document.getElementById("number1").value;
+        let num2= +document.getElementById("number2").value;
+        let result= num1-num2;
+        document.getElementById("kq").innerHTML=result}
+</script>
+<script>
+    document.getElementById("mul").onclick=function nhan(){
+        let num1= +document.getElementById("number1").value;
+        let num2= +document.getElementById("number2").value;
+        let result= num1*num2;
+        document.getElementById("kq").innerHTML=result}
+</script>
+<script>
+    document.getElementById("divi").onclick=function chia(){
+        let num1= +document.getElementById("number1").value;
+        let num2= +document.getElementById("number2").value;
+        let result= num1/num2;
+        document.getElementById("kq").innerHTML=result}
+</script>
+</html>
