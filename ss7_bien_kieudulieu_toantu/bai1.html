@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>diemtrungbinh</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td>Mời nhập điểm Vật Lý:</td><td><input id="ly" type="number"></td>
+    </tr>
+    <tr>
+        <td>Mời nhập điểm Hóa học:</td><td><input id="hoa" type="number"></td><br>
+    </tr>
+    <tr>
+        <td>Mời nhập điểm Sinh:</td><td><input id="sinh" type="number"></td><br>
+    </tr>
+    <tr>
+        <td><button id="tinhdtb" onclick="dtb()">Tính ĐTB</button> </td>
+        <td><button id="tinhtong" onclick="tong()">Tính Tổng</button> </td>
+    </tr>
+    <tr>
+        <td><p id="dtb">Điểm trung bình:</p></td>
+        <td><p id="tong">Tổng điểm</p></td>
+    </tr>
+</table>
+</body>
+<script>
+    document.getElementById("tinhdtb").onclick= function dtb() {
+        let Ly= +document.getElementById("ly").value;
+        let Hoa= +document.getElementById("hoa").value;
+        let Sinh= +document.getElementById("sinh").value;
+        let diemtrungbinh= (Ly+Hoa+Sinh)/3;
+        document.getElementById("dtb").innerHTML="Điểm trung bình: "+ diemtrungbinh
+    }
+</script>
+<script>
+    document.getElementById("tinhtong").onclick= function tong() {
+        let Ly= +document.getElementById("ly").value;
+        let Hoa= +document.getElementById("hoa").value;
+        let Sinh= +document.getElementById("sinh").value;
+        let diemtong= (Ly+Hoa+Sinh);
+        document.getElementById("tong").innerHTML="Tổng điểm: "+ diemtong
+    }
+</script>
+</html>

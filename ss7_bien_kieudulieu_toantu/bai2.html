@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>chuyen_doi_nhiet_do</title>
+</head>
+<body>
+Điền nhiệt độ <label for="doC"></label><input id="doC" type="number">
+<button id="chuyendoi" onclick="chuyendoi()">chuyển độ F</button>
+<p id="doF"> Nhiệt độ F là</p>
+</body>
+<script>
+    document.getElementById("chuyendoi").onclick=function chuyendoi() {
+        let DoC=+document.getElementById("doC").value;
+        let doF=(DoC*9/5)+32;
+        document.getElementById("doF").innerHTML= "Nhiệt độ F là "+doF
+    }
+</script>
+</html>

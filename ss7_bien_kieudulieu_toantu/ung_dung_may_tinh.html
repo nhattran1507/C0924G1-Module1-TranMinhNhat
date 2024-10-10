@@ -7,44 +7,44 @@
 <body>
 <table>
     <tr>
-        <td colspan="2"><input id="number1" type="number"></td>
-        <td colspan="2"><input id="number2" type="number"></td><br>
+        <td colspan="2"><label for="number1"></label><input id="number1" type="number"></td>
+        <td colspan="2"><label for="number2"></label><input id="number2" type="number"></td><br>
     </tr>
     <tr>
-        <td><button id="plus" onclick="cong()">addition(+)</button></td>
-        <td><button id="minus" onclick="tru()">subtraction(-)</button></td>
-        <td><button id="mul" onclick="nhan()">multiplication(x)</button></td>
-        <td><button id="divi" onclick="chia()">division(/)</button></td>
+        <td><button id="plus" onclick="plus()">addition(+)</button></td>
+        <td><button id="minus" onclick="minus()">subtraction(-)</button></td>
+        <td><button id="mul" onclick="mul()">multiplication(x)</button></td>
+        <td><button id="divi" onclick="divi()">division(/)</button></td>
     </tr>
 </table>
-<p id="kq"></p>
+<p id="result">Kết quả là</p>
 </body>
 <script>
-    document.getElementById("plus").onclick=function cong(){
+    document.getElementById("plus").onclick=function plus(){
     let num1= +document.getElementById("number1").value;
     let num2= +document.getElementById("number2").value;
-    let result= num1+num2;
-    document.getElementById("kq").innerHTML=result}
+    if (num1>0 && num2>0){let result= num1+num2;
+    document.getElementById("result").innerHTML="Kết quả là  " +result}else {document.getElementById("result").innerHTML="nhập sai dữ liệu"}}
 </script>
 <script>
-    document.getElementById("minus").onclick=function tru(){
+    document.getElementById("minus").onclick=function minus(){
         let num1= +document.getElementById("number1").value;
         let num2= +document.getElementById("number2").value;
-        let result= num1-num2;
-        document.getElementById("kq").innerHTML=result}
+        if (num1>0 && num2>0){let result= num1-num2;
+            document.getElementById("result").innerHTML="Kết quả là  " +result}else {document.getElementById("result").innerHTML="nhập sai dữ liệu"}}
 </script>
 <script>
-    document.getElementById("mul").onclick=function nhan(){
+    document.getElementById("mul").onclick=function mul(){
         let num1= +document.getElementById("number1").value;
         let num2= +document.getElementById("number2").value;
-        let result= num1*num2;
-        document.getElementById("kq").innerHTML=result}
+        if (num1>0 && num2>0){let result= num1*num2;
+            document.getElementById("result").innerHTML="Kết quả là  " +result}else {document.getElementById("result").innerHTML="nhập sai dữ liệu"}}
 </script>
 <script>
-    document.getElementById("divi").onclick=function chia(){
+    document.getElementById("divi").onclick=function divi(){
         let num1= +document.getElementById("number1").value;
         let num2= +document.getElementById("number2").value;
-        let result= num1/num2;
-        document.getElementById("kq").innerHTML=result}
+        if (num1>0 && num2>0){let result= num1/num2;
+            document.getElementById("result").innerHTML="Kết quả là  " +result}else {document.getElementById("result").innerHTML="nhập sai dữ liệu"}}
 </script>
 </html>
