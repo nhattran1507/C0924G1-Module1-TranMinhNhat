@@ -5,25 +5,31 @@
     <title>xeploaihocsinh</title>
 </head>
 <body>
-<p>Mời nhập điểm bài kiểm tra<input id="number1" type="number"></p>
-<input id="number2" type="number">
-<input id="number3" type="number">
+<p>Mời nhập điểm bài kiểm tra<input id="point1" type="number"></p>
+<p>Mời nhập điểm thi giữa kỳ<input id="point2" type="number"></p>
+<p>Mời nhập điểm thi cuối kỳ<input id="point3" type="number"></p>
 <button id="check" onclick="check()">Tính toán</button>
 <p id="result"></p>
 </body>
-<script>q
+<script>
 document.getElementById("check").onclick = function check() {
-    let a = +document.getElementById("number1").value
-    let b = +document.getElementById("number2").value
-    let c = +document.getElementById("number3").value
-    let max = a
-    if (isNaN(a) || isNaN(b) || isNaN(c)) {
-        document.getElementById("result").innerHTML = "mời nhập lại số"
-    } else {
-        if (max < b) max = b
-        if (max < c) max = c
+    let point1 = +document.getElementById("point1").value
+    let point2 = +document.getElementById("point2").value
+    let point3 = +document.getElementById("point3").value
+    let dtb = (point1 + point2 + point3) / 3
+    if (isNaN(point1) || (point1)<0 ||point1>10 ||isNaN(point2) || point2<0 ||point2>10 || isNaN(point3) || point3<0 ||point3>10)
+    {
+        document.getElementById("result").innerHTML = "mời nhập lại điểm"}
+        else if (dtb>8) {
+            document.getElementById("result").innerHTML = `Điểm trung bình là ${dtb} bạn xếp loại Giỏi`
+        }
+        else if (dtb > 6.5) {
+            document.getElementById("result").innerHTML = `Điểm trung bình là ${dtb} bạn xếp loại Khá`
+        }
+        else if (dtb > 3.5) {
+            document.getElementById("result").innerHTML = `Điểm trung bình là ${dtb} bạn xếp loại Yếu`
+        } else {
+            document.getElementById("result").innerHTML = `Điểm trung bình là ${dtb} bạn xếp loại Kém`}
     }
-    document.getElementById("result").innerHTML = max
-}
 </script>
 </html>
