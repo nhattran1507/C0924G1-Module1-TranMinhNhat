@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tính tiền lãi</title>
+</head>
+<body>
+<p>Nhập tiền gốc<input id="principal" type="number"></p>
+<p>Nhập số tháng vay<input id="month" type="number"></p>
+<p>Nhập lãi suất vay<input id="interestRate"></p>
+<button id="cal" onclick="calculate()">Tính tiền phải trả</button>
+<p id="result"></p>
+</body>
+<script>
+    document.getElementById("cal").onclick = function calculate() {
+        let principal = +document.getElementById("principal").value
+        let month = +document.getElementById("month").value
+        let interestRate = +document.getElementById("interestRate").value
+        let payable =principal*Math.pow((1 + interestRate), month)
+        if (isNaN(principal) || isNaN(month) || isNaN(interestRate) || principal < 0 || month < 0 || interestRate < 0 || !Number.isInteger(month) || !Number.isInteger(principal)) {
+            document.getElementById("result").innerHTML = "Mời nhập lại"
+        } else {
+            document.getElementById("result").innerHTML = "Số tiền phải trả " + payable.toFixed(0) + " VND"
+        }
+    }
+</script>
+</html>

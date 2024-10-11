@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tính Diện Tích hình chữ nhật</title>
+</head>
+<body>
+<p>Mời nhập cạnh lớn hình chữ nhật <input id="largeRectangularSide" type="number"></p>
+<p>Mời nhập cạnh nhỏ hình chữ nhật <input id="smallRectangularSide" type="number"></p>
+<button id="cal" onclick="calculate()">Tính diện tích hình chữ nhật</button>
+<p id="result"></p>
+</body>
+<script>
+    document.getElementById("cal").onclick = function calculate() {
+        let largeRectangularSide = +document.getElementById("largeRectangularSide").value
+        let smallRectangularSide = +document.getElementById("smallRectangularSide").value
+        let rectangularArea = largeRectangularSide * smallRectangularSide
+        if (isNaN(largeRectangularSide) || largeRectangularSide < 0 || isNaN(smallRectangularSide) || smallRectangularSide < 0) {
+            document.getElementById("result").innerHTML = "mời nhập lại"
+        } else document.getElementById("result").innerHTML = "Diện tích hình chữ nhật là " + rectangularArea
+    }
+</script>
+</html>

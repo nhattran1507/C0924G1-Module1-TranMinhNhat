@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kiểm tra 3 cạnh tam giác</title>
+</head>
+<body>
+<p>Mời nhập số<input id="a" type="number"></p>
+<p>Mời nhập số<input id="b" type="number"></p>
+<p>Mời nhập số<input id="c" type="number"></p>
+<button id="check" onclick="check()">check</button>
+<p id="result"></p>
+</body>
+<script>
+    document.getElementById("check").onclick = function check() {
+        let a = +document.getElementById("a").value
+        let b = +document.getElementById("b").value
+        let c = +document.getElementById("c").value
+        if (isNaN(a) || isNaN(b) || isNaN(c) || (a && b && c <= 0) || (a + b) <= c || (b + c) <= a || (a + c) <= b) {
+            document.getElementById("result").innerHTML = "Mời nhập lại"
+        } else document.getElementById("result").innerHTML = `ba số thực là cạnh tam giác`
+    }
+</script>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tính giá điện</title>
+</head>
+<body>
+<input id="kwh" type="number">
+<button id="cal" onclick="calculate()">Tính tiền điện</button>
+<p id="result"></p>
+</body>
+<script>
+  document.getElementById("cal").onclick=function calculate(){
+    let kwh=+document.getElementById("kwh").value
+    let price1= 1806
+    let price2= 1886
+    let price3= 2167
+    let price4= 2729
+    let price5= 3050
+    let price6= 3151
+    if (isNaN(kwh)||kwh<0){
+      document.getElementById("result").innerHTML="Mời nhập lại"}
+    else if (kwh>0 && kwh<=50){
+      let priceElectric=kwh*price1
+      document.getElementById("result").innerHTML=`tiền điện tháng này ${priceElectric} VND`}
+    else if (kwh>51 && kwh<100){
+      let priceElectric=(50*price1)+((kwh-50)*price2)
+      document.getElementById("result").innerHTML=`tiền điện tháng này ${priceElectric} VND`}
+    else if (kwh>101 && kwh<=200){
+      let priceElectric=(50*price1)+(50*price2)+((kwh-100)*price3)
+      document.getElementById("result").innerHTML=`tiền điện tháng này ${priceElectric} VND`}
+    else if (kwh>201 && kwh<=300){
+      let priceElectric=(50*price1)+(50*price2)+(100*price3)+(kwh-200)*price4
+      document.getElementById("result").innerHTML=`tiền điện tháng này ${priceElectric} VND`}
+    else if (kwh>301 && kwh<400){
+      let priceElectric=(50*price1)+(50*price2)+(100*price3)+(100*price4)+((kwh-300)*price5)
+      document.getElementById("result").innerHTML=`tiền điện tháng này ${priceElectric} VND`}
+    else {
+      let priceElectric=(50*price1)+(50*price2)+(100*price3)+(100*price4)+(100*price5)+((kwh-400)*price6)
+      document.getElementById("result").innerHTML=`tiền điện tháng này ${priceElectric} VND`}
+  }
+</script>
+</html>

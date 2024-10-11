@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GiaiPhuongTrinhBac1</title>
+</head>
+<body>
+<p>Mời nhập số <input id="a" type="number"></p>
+<p>Mời nhập số <input id="b" type="number"></p>
+<button id="cal" onclick="calculate()">Tính nghiệm của phương trình</button>
+<p id="result"></p>
+</body>
+<script>
+    document.getElementById("cal").onclick = function calculate() {
+        let a = +document.getElementById("a").value
+        let b = +document.getElementById("b").value
+        let x = (-b) / a
+        if (isNaN(a) || isNaN(b)) {
+            document.getElementById("result").innerHTML = "mời nhập lại"
+        } else if (a === 0 && b === 0) {
+            document.getElementById("result").innerHTML = "Phương trình vô số nghiệm"
+        } else if (a === 0 && b !== 0) {
+            document.getElementById("result").innerHTML = "Phương trình vô nghiệm"
+        } else if (a !== 0) {
+            document.getElementById("result").innerHTML = "Nghiệm của phương trình là " + x
+        }
+    }
+</script>
+</html>

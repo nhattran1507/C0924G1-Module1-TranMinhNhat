@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tính diện tích tam giác vuông</title>
+</head>
+<body>
+<p>Mời nhập cạnh 1 hình tam giác <input id="triangularSide1" type="number"></p>
+<p>Mời nhập cạnh 2 hình tam giác <input id="triangularSide2" type="number"></p>
+<button id="cal" onclick="calculate()">Tính diện tích hình tam giác</button>
+<p id="result"></p>
+</body>
+<script>
+    document.getElementById("cal").onclick = function calculate() {
+        let triangularSide1 = +document.getElementById("triangularSide1").value
+        let triangularSide2 = +document.getElementById("triangularSide2").value
+        let triangularArea = (triangularSide1 * triangularSide2) / 2
+        if (isNaN(triangularSide1) || triangularSide1 < 0 || isNaN(triangularSide2) || triangularSide2 < 0) {
+            document.getElementById("result").innerHTML = "mời nhập lại"
+        } else document.getElementById("result").innerHTML = "Diện tích hình tam giác là " + triangularArea
+    }
+</script>
+</html>

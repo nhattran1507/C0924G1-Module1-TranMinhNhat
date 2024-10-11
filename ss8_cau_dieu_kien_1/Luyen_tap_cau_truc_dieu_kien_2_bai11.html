@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tính thuế thu nhập cá nhân</title>
+</head>
+<body>
+<p>Thu nhập tháng<input id="salary" type="number"></p>
+<p>Số người phụ thuộc<input id="person" type="number"></p>
+<button id="cal" onclick="calculate()">Tính thuế</button>
+<p id="result"></p>
+</body>
+<script>
+    document.getElementById("cal").onclick=function calculate(){
+        let salary=+document.getElementById("salary").value
+        let person=+document.getElementById("person").value
+        let reduceSalary=-11000000
+        let reducePerson=person*4400000
+        let tax=(salary-reduceSalary-reducePerson)*0.5
+            if (salary<0 ||isNaN(salary) || person <0 ||isNaN(person) || !Number.isInteger(person))
+            {document.getElementById("result").innerHTML="Nhập lại dữ liệu"}
+            else {document.getElementById("result").innerHTML=`số thuê thu nhập cá nhân phải đóng ${tax} VND`}
+    }
+</script>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tinhdientichhinhvuong</title>
+</head>
+<body>
+<p>Mời nhập cạnh hình vuông <input id="squareEdge" type="number"></p>
+<button id="cal" onclick="calculate()">Tính diện tích hình vuông</button>
+<p id="result"></p>
+</body>
+<script>
+    document.getElementById("cal").onclick = function calculate() {
+        let squareEdge = +document.getElementById("squareEdge").value
+        let squareArea = squareEdge * squareEdge
+        if (isNaN(squareEdge) || squareEdge < 0) {
+            document.getElementById("result").innerHTML = "mời nhập lại"
+        } else document.getElementById("result").innerHTML = "Diện tích hình vuông là " + squareArea
+    }
+</script>
+</html>
