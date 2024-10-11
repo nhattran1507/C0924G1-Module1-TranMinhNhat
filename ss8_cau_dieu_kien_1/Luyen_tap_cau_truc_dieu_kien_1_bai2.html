@@ -10,12 +10,12 @@
 <p id="result"></p>
 </body>
 <script>
-  document.getElementById("check").onclick=function check(){
-    let age=+document.getElementById("age").value
-    if (age>0){
-      if (age<15) document.getElementById("result").innerHTML="Bạn chưa đủ tuổi"
-      else document.getElementById("result").innerHTML="Bạn có thể học lớp 10"
-    }else document.getElementById("result").innerHTML="Mời nhập lại tuổi"
-  }
+    document.getElementById("check").onclick = function check() {
+        let age = +document.getElementById("age").value
+        if (age > 0) {
+            if (age < 15) document.getElementById("result").innerHTML = "Bạn chưa đủ tuổi"
+            else document.getElementById("result").innerHTML = "Bạn có thể học lớp 10"
+        } else document.getElementById("result").innerHTML = "Mời nhập lại tuổi"
+    }
 </script>
 </html>

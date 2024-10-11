@@ -12,24 +12,22 @@
 <p id="result"></p>
 </body>
 <script>
-document.getElementById("check").onclick = function check() {
-    let point1 = +document.getElementById("point1").value
-    let point2 = +document.getElementById("point2").value
-    let point3 = +document.getElementById("point3").value
-    let dtb = (point1 + point2 + point3) / 3
-    if (isNaN(point1) || (point1)<0 ||point1>10 ||isNaN(point2) || point2<0 ||point2>10 || isNaN(point3) || point3<0 ||point3>10)
-    {
-        document.getElementById("result").innerHTML = "mời nhập lại điểm"}
-        else if (dtb>8) {
+    document.getElementById("check").onclick = function check() {
+        let point1 = +document.getElementById("point1").value
+        let point2 = +document.getElementById("point2").value
+        let point3 = +document.getElementById("point3").value
+        let dtb = (point1 + point2 + point3) / 3
+        if (isNaN(point1) || (point1) < 0 || point1 > 10 || isNaN(point2) || point2 < 0 || point2 > 10 || isNaN(point3) || point3 < 0 || point3 > 10) {
+            document.getElementById("result").innerHTML = "mời nhập lại điểm"
+        } else if (dtb > 8) {
             document.getElementById("result").innerHTML = `Điểm trung bình là ${dtb} bạn xếp loại Giỏi`
-        }
-        else if (dtb > 6.5) {
+        } else if (dtb > 6.5) {
             document.getElementById("result").innerHTML = `Điểm trung bình là ${dtb} bạn xếp loại Khá`
-        }
-        else if (dtb > 3.5) {
+        } else if (dtb > 3.5) {
             document.getElementById("result").innerHTML = `Điểm trung bình là ${dtb} bạn xếp loại Yếu`
         } else {
-            document.getElementById("result").innerHTML = `Điểm trung bình là ${dtb} bạn xếp loại Kém`}
+            document.getElementById("result").innerHTML = `Điểm trung bình là ${dtb} bạn xếp loại Kém`
+        }
     }
 </script>
 </html>

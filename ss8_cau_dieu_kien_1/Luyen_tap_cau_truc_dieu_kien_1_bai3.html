@@ -10,11 +10,14 @@
 <p id="result"></p>
 </body>
 <script>
-  document.getElementById("check").onclick=function check(){
-    let number=+document.getElementById("number").value
-    if (isNaN(number)){document.getElementById("result").innerHTML="mời nhập lại số"}else{
-      if (number<0) document.getElementById("result").innerHTML=`số ${number} nhỏ hơn 0`
-      else document.getElementById("result").innerHTML=`số ${number} lớn hơn 0`}
-  }
+    document.getElementById("check").onclick = function check() {
+        let number = +document.getElementById("number").value
+        if (isNaN(number)) {
+            document.getElementById("result").innerHTML = "mời nhập lại số"
+        } else {
+            if (number < 0) document.getElementById("result").innerHTML = `số ${number} nhỏ hơn 0`
+            else document.getElementById("result").innerHTML = `số ${number} lớn hơn 0`
+        }
+    }
 </script>
 </html>

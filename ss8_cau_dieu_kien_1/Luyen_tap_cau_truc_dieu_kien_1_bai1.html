@@ -11,13 +11,14 @@
 <p id="result"></p>
 </body>
 <script>
-  document.getElementById("cal").onclick=function calculate(){
-    let a= +document.getElementById("number1").value
-    let b= +document.getElementById("number2").value
-    if (isNaN(a) || isNaN(b)){
-      document.getElementById("result").innerHTML="nhập lại dữ liệu"
-    }else if (a%b==0){document.getElementById("result").innerHTML="a chia hết cho b"}
-    else document.getElementById("result").innerHTML="a không chia hết cho b"
-  }
+    document.getElementById("cal").onclick = function calculate() {
+        let a = +document.getElementById("number1").value
+        let b = +document.getElementById("number2").value
+        if (isNaN(a) || isNaN(b)) {
+            document.getElementById("result").innerHTML = "nhập lại dữ liệu"
+        } else if (a % b == 0) {
+            document.getElementById("result").innerHTML = "a chia hết cho b"
+        } else document.getElementById("result").innerHTML = "a không chia hết cho b"
+    }
 </script>
 </html>
