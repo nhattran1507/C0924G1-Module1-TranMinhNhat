@@ -25,22 +25,22 @@
 </body>
 <script>
     document.getElementById("change").onclick=function changemoney() {
-        let Amount= +document.getElementById("amount").value;
-        let From= document.getElementById("fromCurrency").value;
-        let To=document.getElementById("toCurrency").value;
+        let amount= +document.getElementById("amount").value;
+        let from= document.getElementById("fromCurrency").value;
+        let to=document.getElementById("toCurrency").value;
         let result;
-        if (Amount>0) {
-            if (From === "VND" && To === "USD") {
-                result = Amount / 23000
+        if (amount>0) {
+            if (from === "VND" && To === "USD") {
+                result = amount / 23000
                 document.getElementById('result').innerHTML = result + "USD";
-            } else if (From === "USD" && To === "VND") {
-                result = Amount * 23000
+            } else if (from === "USD" && to === "VND") {
+                result = amount * 23000
                 document.getElementById('result').innerHTML = result + "VND";
-            } else if (From === "VND" && To === "VND") {
-                result = Amount
+            } else if (from === "VND" && to === "VND") {
+                result = amount
                 document.getElementById('result').innerHTML = result + "VND";
             } else {
-                result = Amount
+                result = amount
                 document.getElementById('result').innerHTML = result + "USD";
             }
         }else {document.getElementById('result').innerHTML = "nhập lại dữ liệu"}
