@@ -5,14 +5,30 @@
     <title>Kiểm tra 3 cạnh tam giác</title>
 </head>
 <body>
-<p>Mời nhập số<input id="a" type="number"></p>
-<p>Mời nhập số<input id="b" type="number"></p>
-<p>Mời nhập số<input id="c" type="number"></p>
-<button id="check" onclick="check()">check</button>
+<table>
+    <tr>
+        <td><label for="a">Mời nhập số</label></td>
+        <td><input id="a" type="number"></td>
+    </tr>
+    <tr>
+        <td><label for="b">Mời nhập số</label></td>
+        <td><input id="b" type="number"></td>
+    </tr>
+    <tr>
+        <td><label for="c">Mời nhập số</label></td>
+        <td><input id="c" type="number"></td>
+    </tr>
+    <tr>
+        <td>
+            <button id="cal" onclick="calculate()">check</button>
+        </td>
+    </tr>
+</table>
+
 <p id="result"></p>
 </body>
 <script>
-    document.getElementById("check").onclick = function check() {
+    document.getElementById("cal").onclick = function calculate() {
         let a = +document.getElementById("a").value
         let b = +document.getElementById("b").value
         let c = +document.getElementById("c").value

@@ -5,36 +5,37 @@
     <title>Tinhsongaytrongthang</title>
 </head>
 <body>
-<span>mời nhập tháng</span>
+<span><label for='month'>mời nhập tháng</label></span>
 <span><input id='month' type="number"></span>
-<span><button id="countDay" onclick="countday()">tính số ngày trong tháng</button> </span>
+<p><button id="cal" onclick="calculate()">tính số ngày trong tháng</button></p>
 <p id="result">số ngày trong tháng</p>
 </body>
 <script>
-    document.getElementById("countDay").onclick=function countday(){
-        let month= +document.getElementById('month').value
-            switch (month) {
-                case 1:
-                case 3:
-                case 5:
-                case 7:
-                case 8:
-                case 10:
-                case 12:
-                    document.getElementById("result").innerHTML = `số ngày trong tháng ${month} là 31 ngày`
-                    break
-                case 4:
-                case 6:
-                case 9:
-                case 11:
-                    document.getElementById("result").innerHTML = `số ngày trong tháng ${month} là 30 ngày`
-                    break
-                case 2:
-                    document.getElementById("result").innerHTML = `số ngày trong tháng ${month} là 28 hoặc 29 ngày`
-                    break
-                default:
-                    document.getElementById("result").innerHTML = 'nhập sai dữ liệu'
-                    break}
+    document.getElementById("cal").onclick = function calculate() {
+        let month = +document.getElementById('month').value
+        switch (month) {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                document.getElementById("result").innerHTML = `số ngày trong tháng ${month} là 31 ngày`
+                break
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                document.getElementById("result").innerHTML = `số ngày trong tháng ${month} là 30 ngày`
+                break
+            case 2:
+                document.getElementById("result").innerHTML = `số ngày trong tháng ${month} là 28 hoặc 29 ngày`
+                break
+            default:
+                document.getElementById("result").innerHTML = 'nhập sai dữ liệu'
+                break
+        }
     }
 </script>
 </html>

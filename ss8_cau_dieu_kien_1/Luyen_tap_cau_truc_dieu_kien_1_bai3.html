@@ -5,12 +5,12 @@
     <title>sosanhvoi0</title>
 </head>
 <body>
-<p>Mời nhập số bất kỳ<input id="number" type="number"></p>
-<button id="check" onclick="check()">check</button>
+<label for="number">Mời nhập số bất kỳ</label><input id="number" type="number">
+<button id="cal" onclick="calculate()">check</button>
 <p id="result"></p>
 </body>
 <script>
-    document.getElementById("check").onclick = function check() {
+    document.getElementById("cal").onclick = function calculate() {
         let number = +document.getElementById("number").value
         if (isNaN(number)) {
             document.getElementById("result").innerHTML = "mời nhập lại số"

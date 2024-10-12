@@ -5,14 +5,25 @@
     <title>xeploaihocsinh</title>
 </head>
 <body>
-<p>Mời nhập điểm bài kiểm tra<input id="point1" type="number"></p>
-<p>Mời nhập điểm thi giữa kỳ<input id="point2" type="number"></p>
-<p>Mời nhập điểm thi cuối kỳ<input id="point3" type="number"></p>
-<button id="check" onclick="check()">Tính toán</button>
+<table>
+    <tr>
+        <td><label for="point1">Mời nhập điểm bài kiểm tra</label></td>
+        <td><input id="point1" type="number"></td>
+    </tr>
+    <tr>
+        <td><label for="point2">Mời nhập điểm bài kiểm tra</label></td>
+        <td><input id="point2" type="number"></td>
+    </tr>
+    <tr>
+        <td><label for="point3">Mời nhập điểm bài kiểm tra</label></td>
+        <td><input id="point3" type="number"></td>
+    </tr>
+</table>
+<button id="cal" onclick="calculate()">Tính toán</button>
 <p id="result"></p>
 </body>
 <script>
-    document.getElementById("check").onclick = function check() {
+    document.getElementById("cal").onclick = function calculate() {
         let point1 = +document.getElementById("point1").value
         let point2 = +document.getElementById("point2").value
         let point3 = +document.getElementById("point3").value

@@ -10,13 +10,17 @@
         <th colspan="2">TÍNH CHỈ SỐ BMI</th>
     </tr>
     <tr>
-        <td>Mời nhập cân nặng (kg)</td><td><input id="weight" type="number"></td>
+        <td><label for="weight">Mời nhập cân nặng (kg)</label></td>
+        <td><input id="weight" type="number"></td>
     </tr>
     <tr>
-        <td>Mời nhập chều cao (m)</td><td><input id="height" type="number"></td>
+        <td><label for="height">Mời nhập chều cao (m)</label></td>
+        <td><input id="height" type="number"></td>
     </tr>
     <tr>
-        <td><button id="calculate" onclick="calculateBmi()">Tính toán BMI</button> </td>
+        <td>
+            <button id="cal" onclick="calculate()">Tính toán BMI</button>
+        </td>
     </tr>
     <tr>
         <td><p id="result">kết quả BMI</p></td>
@@ -24,20 +28,22 @@
 </table>
 </body>
 <script>
-    document.getElementById("calculate").onclick=function calculateBmi(){
-        let weith=+document.getElementById("weight").value
-        let heith=+document.getElementById("height").value
-        let bmi=weith/(heith*heith)
-        if (weith>0 && heith>0){
-            if (bmi<18.5)
-                document.getElementById('result').innerHTML='kết quả BMI '+bmi+' quá ốm mời ăn thêm';
-            else if (bmi<25)
-                document.getElementById('result').innerHTML='kết quả BMI '+bmi+' thân hình cân đối'
-            else if (bmi<30)
-                document.getElementById('result').innerHTML='kết quả BMI '+bmi+' hơi mập hãy giảm cân'
+    document.getElementById("cal").onclick = function calculate() {
+        let weith = +document.getElementById("weight").value
+        let heith = +document.getElementById("height").value
+        let bmi = weith / (heith * heith)
+        if (weith > 0 && heith > 0) {
+            if (bmi < 18.5)
+                document.getElementById('result').innerHTML = 'kết quả BMI ' + bmi + ' quá ốm mời ăn thêm';
+            else if (bmi < 25)
+                document.getElementById('result').innerHTML = 'kết quả BMI ' + bmi + ' thân hình cân đối'
+            else if (bmi < 30)
+                document.getElementById('result').innerHTML = 'kết quả BMI ' + bmi + ' hơi mập hãy giảm cân'
             else
-                document.getElementById('result').innerHTML='kết quả BMI '+bmi+' warning mập quá mập mau giảm cân'
-        }else {document.getElementById('result').innerHTML='nhập sai dữ liệu'}
+                document.getElementById('result').innerHTML = 'kết quả BMI ' + bmi + ' warning mập quá mập mau giảm cân'
+        } else {
+            document.getElementById('result').innerHTML = 'nhập sai dữ liệu'
+        }
     }
 </script>
 </html>

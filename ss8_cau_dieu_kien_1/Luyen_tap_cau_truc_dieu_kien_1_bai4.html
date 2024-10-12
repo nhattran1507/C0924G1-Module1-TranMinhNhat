@@ -5,14 +5,25 @@
     <title>Title</title>
 </head>
 <body>
-<input id="number1" type="number">
-<input id="number2" type="number">
-<input id="number3" type="number">
-<button id="check" onclick="check()">Tính toán</button>
+<table>
+    <tr>
+        <td><label for="number1">Mời nhập số</label></td>
+        <td><input id="number1" type="number"></td>
+    </tr>
+    <tr>
+        <td><label for="number2">Mời nhập số</label></td>
+        <td><input id="number2" type="number"></td>
+    </tr>
+    <tr>
+        <td><label for="number3">Mời nhập số</label></td>
+        <td><input id="number3" type="number"></td>
+    </tr>
+</table>
+<button id="cal" onclick="calculate()">Tính toán</button>
 <p id="result"></p>
 </body>
 <script>
-    document.getElementById("check").onclick = function check() {
+    document.getElementById("cal").onclick = function calculate() {
         let a = +document.getElementById("number1").value
         let b = +document.getElementById("number2").value
         let c = +document.getElementById("number3").value
@@ -27,7 +38,7 @@
                 max = c
             }
         }
-        document.getElementById("result").innerHTML = max
+        document.getElementById("result").innerHTML = `Số lớn nhất là ${max}`
     }
 </script>
 </html>

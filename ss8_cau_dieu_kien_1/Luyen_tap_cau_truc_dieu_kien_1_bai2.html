@@ -5,12 +5,12 @@
     <title>vaolop10</title>
 </head>
 <body>
-<p>Mời nhập tuổi<input id="age" type="number"></p>
-<button id="check" onclick="check()">Kiểm tra</button>
+<label for="age">Mời nhập tuổi</label><input id="age" type="number">
+<button id="cal" onclick="calculate()">Kiểm tra</button>
 <p id="result"></p>
 </body>
 <script>
-    document.getElementById("check").onclick = function check() {
+    document.getElementById("cal").onclick = function calculate() {
         let age = +document.getElementById("age").value
         if (age > 0) {
             if (age < 15) document.getElementById("result").innerHTML = "Bạn chưa đủ tuổi"

@@ -5,12 +5,12 @@
     <title>kiểm tra tuổi</title>
 </head>
 <body>
-<p>Mời nhập tuổi<input id="age" type="number"></p>
-<button id="check" onclick="check()">check</button>
+<p>Mời nhập tuổi<label for="age"></label><input id="age" type="number"></p>
+<button id="cal" onclick="calculate()">check</button>
 <p id="result"></p>
 </body>
 <script>
-    document.getElementById("check").onclick = function check() {
+    document.getElementById("check").onclick = function calcullate() {
         let age = +document.getElementById("age").value
         if (age >= 0 && Number.isInteger(age) && age <= 120) {
             document.getElementById("result").innerHTML = `Tuổi hiện tại của bạn là ${age}`

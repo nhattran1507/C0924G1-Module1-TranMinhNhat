@@ -5,8 +5,16 @@
     <title>bai1</title>
 </head>
 <body>
-<input id="number1" type="number">
-<input id="number2" type="number">
+<table>
+    <tr>
+        <td><label for="number1">Mời nhập số</label></td>
+        <td><input id="number1" type="number"></td>
+    </tr>
+    <tr>
+        <td><label for="number2">Mời nhập số</label></td>
+        <td><input id="number2" type="number"></td>
+    </tr>
+</table>
 <button id="cal" onclick="calculate()">Tính toán</button>
 <p id="result"></p>
 </body>
@@ -16,7 +24,7 @@
         let b = +document.getElementById("number2").value
         if (isNaN(a) || isNaN(b)) {
             document.getElementById("result").innerHTML = "nhập lại dữ liệu"
-        } else if (a % b == 0) {
+        } else if (a % b === 0) {
             document.getElementById("result").innerHTML = "a chia hết cho b"
         } else document.getElementById("result").innerHTML = "a không chia hết cho b"
     }
