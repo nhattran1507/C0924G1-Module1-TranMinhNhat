@@ -22,10 +22,12 @@
     document.getElementById("cal").onclick = function calculate() {
         let triangularSide1 = +document.getElementById("triangularSide1").value
         let triangularSide2 = +document.getElementById("triangularSide2").value
-        let triangularArea = (triangularSide1 * triangularSide2) / 2
         if (isNaN(triangularSide1) || triangularSide1 < 0 || isNaN(triangularSide2) || triangularSide2 < 0) {
             document.getElementById("result").innerHTML = "mời nhập lại"
-        } else document.getElementById("result").innerHTML = "Diện tích hình tam giác là " + triangularArea
+        } else {
+            let triangularArea = (triangularSide1 * triangularSide2) / 2
+            document.getElementById("result").innerHTML = "Diện tích hình tam giác là " + triangularArea
+        }
     }
 </script>
 </html>

@@ -22,7 +22,6 @@
     document.getElementById("cal").onclick = function calculate() {
         let a = +document.getElementById("a").value
         let b = +document.getElementById("b").value
-        let x = (-b) / a
         if (isNaN(a) || isNaN(b)) {
             document.getElementById("result").innerHTML = "mời nhập lại"
         } else if (a === 0 && b === 0) {
@@ -30,6 +29,7 @@
         } else if (a === 0 && b !== 0) {
             document.getElementById("result").innerHTML = "Phương trình vô nghiệm"
         } else if (a !== 0) {
+            let x = (-b) / a
             document.getElementById("result").innerHTML = "Nghiệm của phương trình là " + x
         }
     }

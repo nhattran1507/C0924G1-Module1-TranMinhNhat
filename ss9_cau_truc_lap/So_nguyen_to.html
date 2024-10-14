@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input id="number" type="number">
+<button id="cal" onclick="calculate()">kiểm tra</button>
+<p id="result"></p>
+</body>
+<script>
+    document.getElementById("cal").onclick = function calculate() {
+        let number = +document.getElementById("number").value
+        let isPrime = 0;
+        for (let i = 2; i <= Math.sqrt(number); i++) {
+            if (number % i === 0 && number > 2) {
+                isPrime = 1;
+                break
+            }
+        }
+        if (isPrime === 0) {document.getElementById("result").innerHTML = "là số nguyên tố"}
+        else document.getElementById("result").innerHTML = "không phải là số nguyên tố"
+    }
+</script>
+</html>

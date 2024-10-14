@@ -22,12 +22,13 @@
     document.getElementById("cal").onclick = function calculate() {
         let salary = +document.getElementById("salary").value
         let person = +document.getElementById("person").value
-        let reduceSalary = -11000000
-        let reducePerson = person * 4400000
-        let tax = (salary - reduceSalary - reducePerson) * 0.5
+
         if (salary < 0 || isNaN(salary) || person < 0 || isNaN(person) || !Number.isInteger(person)) {
             document.getElementById("result").innerHTML = "Nhập lại dữ liệu"
         } else {
+            let reduceSalary = -11000000
+            let reducePerson = person * 4400000
+            let tax = (salary - reduceSalary - reducePerson) * 0.5
             document.getElementById("result").innerHTML = `số thuê thu nhập cá nhân phải đóng ${tax} VND`
         }
     }

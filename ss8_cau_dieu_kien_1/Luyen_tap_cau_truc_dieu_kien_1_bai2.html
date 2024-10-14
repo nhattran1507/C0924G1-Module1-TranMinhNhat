@@ -12,7 +12,7 @@
 <script>
     document.getElementById("cal").onclick = function calculate() {
         let age = +document.getElementById("age").value
-        if (age > 0) {
+        if (age > 0 && age <120) {
             if (age < 15) document.getElementById("result").innerHTML = "Bạn chưa đủ tuổi"
             else document.getElementById("result").innerHTML = "Bạn có thể học lớp 10"
         } else document.getElementById("result").innerHTML = "Mời nhập lại tuổi"

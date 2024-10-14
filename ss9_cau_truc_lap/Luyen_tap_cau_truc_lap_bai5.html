@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+let number1=0;
+let number2=1;
+let num=20;
+let count=0;
+for (let i=1; i<=num; i++){
+let number3=number1+number2;
+number1=number2;
+number2=number3;
+count += number3
+}
+document.write(`${count}`)
+</script>
+</body>
+</html>

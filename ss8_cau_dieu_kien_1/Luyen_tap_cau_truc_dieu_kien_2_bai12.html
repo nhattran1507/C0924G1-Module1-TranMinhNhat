@@ -31,10 +31,10 @@
         let principal = +document.getElementById("principal").value
         let month = +document.getElementById("month").value
         let interestRate = +document.getElementById("interestRate").value
-        let payable = principal * Math.pow((1 + interestRate), month)
         if (isNaN(principal) || isNaN(month) || isNaN(interestRate) || principal < 0 || month < 0 || interestRate < 0 || !Number.isInteger(month) || !Number.isInteger(principal)) {
             document.getElementById("result").innerHTML = "Mời nhập lại"
         } else {
+            let payable = principal * Math.pow((1 + interestRate), month)
             document.getElementById("result").innerHTML = "Số tiền phải trả " + payable.toFixed(0) + " VND"
         }
     }

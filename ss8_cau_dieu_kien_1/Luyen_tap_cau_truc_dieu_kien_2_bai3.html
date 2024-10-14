@@ -12,10 +12,11 @@
 <script>
     document.getElementById("cal").onclick = function calculate() {
         let squareEdge = +document.getElementById("squareEdge").value
-        let squareArea = squareEdge * squareEdge
         if (isNaN(squareEdge) || squareEdge < 0) {
             document.getElementById("result").innerHTML = "mời nhập lại"
-        } else document.getElementById("result").innerHTML = `Diện tích hình vuông là ${squareArea}`
+        } else {
+            let squareArea = squareEdge * squareEdge
+            document.getElementById("result").innerHTML = `Diện tích hình vuông là ${squareArea}`}
     }
 </script>
 </html>

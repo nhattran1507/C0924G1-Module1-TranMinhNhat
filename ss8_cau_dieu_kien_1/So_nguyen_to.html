@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-$END$
+<label for="number"></label><input id="number" type="number">
+<button id="cal" onclick="calculate()">check</button>
+<p id="result"></p>
 </body>
+<script>
+  document.getElementById("cal").onclick=function calculate(){
+    let number= document.getElementById("number").value
+    for (i=1; i<n-1; i+=1)
+    {if (n%i===0 && n%2===0){false}
+      else document.getElementById("result").innerHTML=`${number} là số nguyên tố`;break}
+  }
+</script>
 </html>

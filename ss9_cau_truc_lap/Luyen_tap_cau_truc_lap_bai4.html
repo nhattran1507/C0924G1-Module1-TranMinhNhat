@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let number1=0;
+    let number2=1;
+    let number3;
+    let num= 100;
+    for (let i=3; i<num; i++){
+        number3=number1+number2;
+        number1=number2;
+        number2=number3;
+        if (number3% 5===0){
+        document.write(`số đầu tiên chia hết 5 là ${number3}`, "<br>");
+        break}
+    }
+</script>
+</body>
+</html>
