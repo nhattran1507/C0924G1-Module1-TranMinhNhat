@@ -18,15 +18,22 @@
         while (isNaN(number) || !Number.isInteger(number)) {
             numbercheck = +prompt("mời bạn nhập lại số bạn muốn đoán");
         }
-        for (i = 1; i < 3; i++) {
+        for (let i = 1; i <= 3; i++) {
+            if (i === 3) {
+                if (numbercheck === numberRandom) {
+                    alert("chúc mừng bạn đã đoán đúng")
+                } else alert("bạn đã đoán sai 3 lần mời bạn cút")
+                break
+            }
             if (numbercheck < numberRandom) {
                 numbercheck = +prompt("Số bạn đoán nhỏ hơn kết quả")
             } else if (numbercheck > numberRandom) {
                 numbercheck = +prompt("Số bạn đoán lớn hơn kết quả")
             } else {
                 alert("chúc mừng bạn đoán đúng rồi")
-                break
+                break;
             }
+
         }
     }
 </script>
