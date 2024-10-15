@@ -15,7 +15,7 @@
         let numberRandom = Math.floor(Math.random() * number);
         console.log(numberRandom);
         let numbercheck = +prompt("Mời bạn nhập số bạn muốn đoán");
-        while (isNaN(number) || !Number.isInteger(number)) {
+        while (isNaN(numbercheck) || !Number.isInteger(numbercheck)) {
             numbercheck = +prompt("mời bạn nhập lại số bạn muốn đoán");
         }
         for (let i = 1; i <= 3; i++) {
