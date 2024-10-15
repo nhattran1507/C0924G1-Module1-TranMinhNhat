@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let count = 0;
+    let number = 1;
+    let div7;
+    let total = 0
+    while (count < 30) {
+        div7 = 0
+        for (let i = 1; i <= number; i++) {
+            if (number % 7 === 0) {
+                div7 = 1;
+                break
+            }
+        }
+        if (div7 === 1) {
+            document.write(`${number} <br>`)
+            count++
+            total += number
+        }
+        number++
+    }
+    document.write(`Tổng là ${total}`)
+</script>
+</body>
+</html>
