@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tu Dien</title>
+</head>
+<body>
+<label for="eng">Nhập từ tiếng anh</label><input id="eng" type="text">
+<button id="trans" onclick="translate()">Dịch</button>
+<p id="viet"></p>
+</body>
+<script>
+    document.getElementById("trans").onclick = function translate() {
+        let arrEng = ["apple", "banana", "bike", "car"];
+        let arrViet = ["Táo", "Chuối", "Xe máy", "xe ôtô"];
+        let eng = document.getElementById("eng").value;
+        let indexEng = 0;
+        for (let i = 0; i < arrEng.length; i++) {
+            if (eng.toLowerCase() === arrEng[i]) {
+                indexEng = i
+                document.getElementById("viet").innerHTML = arrViet[i]
+                break;
+            } else {document.getElementById("viet").innerHTML = "không có trong từ điển"}
+        }
+    }
+</script>
+</html>

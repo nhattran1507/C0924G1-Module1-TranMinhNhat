@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let number = [1, 5, 4, 6, 10, 12, 19, 20, 21, 11]
+    let max = number[0];
+    let sum = 0;
+    for (let i = 0; i < number.length; i++) {
+        if (max < number[i]) {
+            max = number[i];
+            sum += number[i];
+        }
+    }
+    avg = (sum / number.length)
+    document.write(`số lớn nhất là ${max} giá trị trung bình là ${avg}`)
+</script>
+</body>
+</html>

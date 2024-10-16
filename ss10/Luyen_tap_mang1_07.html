@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<label for="number"></label><input id="number" type="number">
+<button id="check" onclick="check()">check</button>
+<p id="result"></p>
+</body>
+<script>
+  document.getElementById("check").onclick = function check() {
+    let num = [1, 4, 7, 10, -12, 15, -6, -20, 17, 9];
+    let number = +document.getElementById("number").value;
+    for (let i = 0; i < num.length; i++) {
+      if (number === num[i]) {
+        num.splice(i,1);
+        num.push(0)
+        document.getElementById("result").innerHTML = `dãy số mới là ${num}`
+        break;
+      } else {document.getElementById("result").innerHTML = `số không thuộc mảng vẫn giữ dãy số cũ ${num}`}
+    }
+  }
+</script>
+</html>

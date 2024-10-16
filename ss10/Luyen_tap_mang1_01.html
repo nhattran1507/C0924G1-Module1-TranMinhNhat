@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let number = [1, 4, 7, 10, 12, 15, 6, 20, 17, 9];
+    let count = 0;
+    for (let i = 0; i < number.length; i++) {
+        if (number[i] >= 10) {
+            count += 1
+        }
+    }
+    document.write(`Có ${count} số lớn hơn hoặc bằng 10 và có ${number.length - count} số nhỏ hơn 10 `)
+</script>
+</body>
+</html>
