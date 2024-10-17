@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<label for="string1">Mời nhập chuỗi 1</label><input id="string1" type="text">
+<label for="string2">Mời nhập chuỗi 2</label><input id="string2" type="text">
+<button id="check" onclick="check()">check</button>
+<p id="result"></p>
+<script>
+    document.getElementById("check").onclick = function check() {
+        let string1 = document.getElementById("string1").value;
+        let string2 = document.getElementById("string2").value;
+        if (string1.toLowerCase() === string2.toLowerCase()) {
+            document.getElementById("result").innerHTML = "hai chuỗi giống nhau";
+        } else {
+            document.getElementById("result").innerHTML = "hai chuỗi khác nhau";
+        }
+    }
+</script>
+
+</body>
+</html>
