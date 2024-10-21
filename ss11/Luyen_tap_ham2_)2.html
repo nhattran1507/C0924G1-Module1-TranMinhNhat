@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function insertRadius () {
+    let radius= +prompt("Mời nhập bán kính hình tròn");
+      while (isNaN(radius) || !Number.isInteger(radius)) {
+        radius = +prompt("mời nhập lại bán kính ");
+      }
+      return radius
+  }
+
+  function circumference () {
+    let circumference= (2*insertRadius())*3.14;
+    document.write(`Chu vi hình tròn là ${circumference}`)
+  }
+
+  function areaCircle () {
+  let areaCircle=3.14*(Math.pow(insertRadius(),2));
+    document.write(`Chu vi hình tròn là ${areaCircle}`)}
+    circumference ()
+</script>
+</body>
+</html>

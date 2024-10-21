@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function square (num) {
+        return num*num
+    }
+    function insertNum() {
+        let num = +prompt("mời nhập số ")
+        while (isNaN(num) || !Number.isInteger(num)) {
+            num = +prompt("mời nhập lại số ")
+        }
+        let square1 = square(num)
+        document.write(`Bình phương của ${num} là ${square1} ` )
+    }
+    insertNum()
+</script>
+</body>
+</html>
