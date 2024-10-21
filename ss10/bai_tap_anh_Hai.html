@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let n = +prompt("mời nhập độ dài mảng bạn muốn")
+    while (isNaN(n) || !Number.isInteger(n) || n < 0) {
+        n = +prompt("Mời bạn nhập lại")
+    }
+    let numbers = []
+    let count1 = 0
+    let count2 = 0
+    for (let i = 0; i < n; i++) {
+        numbers[i] = +prompt("Nhập số")
+       if (numbers[i] % 2 === 0) {
+            count1 += 1
+        } else {
+            count2 += 1
+        }
+    }
+    if (count1 === count2) {
+        document.write("ok")
+    } else {
+        document.write("no")
+    }
+</script>
+</body>
+</html>

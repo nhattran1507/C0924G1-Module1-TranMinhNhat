@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function isPrime(num) {
+        let isPrime = true;
+        if (num%2===0){isPrime=false}
+        else if (num===2){isPrime=true}
+        else if (num<2){isPrime=false}
+        else {
+            for (let i = 3; i <= Math.sqrt(num); i=i+2) {
+                if (num % i === 0) {
+                    isPrime = false;
+                    break;
+                }
+            }}
+        return isPrime;
+    }
+
+    function displayPrimen() {
+        let n= +prompt("mời nhập dãy số cần kiểm tra")
+        for(let num = 1; num <=n; num++) {
+            if (isPrime(num)) {
+                document.writeln(`${num} là số nguyên tố <br>`)
+            }
+        }
+    }
+
+    /*function displayPrime() {
+        let count = 0
+        let num = 2
+        while (count < 30) {
+            if (isPrime(num)) {
+                count++;
+                document.write(`${num} là số nguyên tố <br>`);
+            }
+            num++;
+        }
+    }
+
+    function insertNum() {
+        num = +prompt("mời nhập số ")
+        while (isNaN(num) || !Number.isInteger(num)) {
+            num = +prompt("mời nhập lại số ")
+        }
+        return num
+    }
+
+    function checkPrime() {
+        insertNum();
+        if (isPrime(num)) {
+            document.write(`${num} là số nguyên tố`)
+        } else {
+            document.write(`${num} không phải là số nguyên tố`)
+        }
+    }
+*/
+
+    displayPrimen();
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let n = +prompt("mời nhập độ dài mảng bạn muốn")
+    while (isNaN(n) || !Number.isInteger(n) || n < 0) {
+        n = +prompt("Mời bạn nhập lại")
+    }
+    let numbers = []
+    for (let i = 0; i < n; i++) {
+        numbers[i] = +prompt("thêm phần tư")
+        console.log(numbers[i])}
+    function find_square_number(n) {
+        let flag = 0;
+        let i = 0;
+        while (i <= n) {
+            if (Math.pow(i, 2) === n) {
+                flag = 1;
+                break;
+            }
+            i++;
+        }
+        return flag;
+    }
+    let count = 0;
+    document.write("Các số chính phương trong mảng là: ");
+    for (let i = 0; i < numbers.length; ++i) {
+        let check = find_square_number(numbers[i]);
+        if (check == 1) {
+            document.write(numbers[i] + " ");
+            ++count;
+        }
+    }
+</script>
+</body>
+</html>

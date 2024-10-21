@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhập mảng không có phần tử trùng lặp</title>
+</head>
+<body>
+<h1>Nhập mảng không có phần tử trùng lặp</h1>
+<label>Nhập số nguyên:</label><br>
+<label for="inputNumber"></label><input id="inputNumber" type="number" placeholder="Nhập số nguyên">
+<br><br>
+<button id="addElement">Thêm phần tử</button>
+<p id="arrayDisplay">Mảng hiện tại: []</p>
+<p id="message"></p>
+<script>
+    let arr = [];
+    document.getElementById("addElement").onclick = function() {
+        let num = Number(document.getElementById("inputNumber").value);
+        if (arr.includes(num)) {
+            document.getElementById("message").innerHTML = `Phần tử ${num} đã tồn tại trong mảng. Vui lòng nhập lại.`;
+        } else {
+            arr.push(num);
+            document.getElementById("message").innerHTML = "";
+        }
+        document.getElementById("arrayDisplay").innerHTML = `Mảng hiện tại: [${arr}]`;
+        document.getElementById("inputNumber").value = '';
+    }
+</script>
+</body>
+</html>
