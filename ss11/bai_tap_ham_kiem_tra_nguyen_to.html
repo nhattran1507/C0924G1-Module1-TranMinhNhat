@@ -8,22 +8,26 @@
 <script>
     function isPrime(num) {
         let isPrime = true;
-        if (num%2===0){isPrime=false}
-        else if (num===2){isPrime=true}
-        else if (num<2){isPrime=false}
-        else {
-            for (let i = 3; i <= Math.sqrt(num); i=i+2) {
+        if (num % 2 === 0) {
+            isPrime = false
+        } else if (num === 2) {
+            isPrime = true
+        } else if (num < 2) {
+            isPrime = false
+        } else {
+            for (let i = 3; i <= Math.sqrt(num); i = i + 2) {
                 if (num % i === 0) {
                     isPrime = false;
                     break;
                 }
-            }}
+            }
+        }
         return isPrime;
     }
 
     function displayPrimen() {
-        let n= +prompt("mời nhập dãy số cần kiểm tra")
-        for(let num = 1; num <=n; num++) {
+        let n = +prompt("mời nhập dãy số cần kiểm tra")
+        for (let num = 1; num <= n; num++) {
             if (isPrime(num)) {
                 document.writeln(`${num} là số nguyên tố <br>`)
             }
