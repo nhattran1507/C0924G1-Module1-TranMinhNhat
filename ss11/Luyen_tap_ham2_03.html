@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function insertN () {
+        let N= +prompt("Mời nhập số");
+        while (isNaN(N) || !Number.isInteger(N)) {
+            N = +prompt("mời nhập lại số ");
+        }
+        return N
+    }
+    function factorial() {
+        let factorial = 1
+        n=insertN()
+        for (let i = 1; i <= n; i++) {
+            factorial = factorial * i
+        }
+        document.write(`N! = là ${factorial}`)
+    }
+
+    factorial()
+</script>
+</body>
+</html>

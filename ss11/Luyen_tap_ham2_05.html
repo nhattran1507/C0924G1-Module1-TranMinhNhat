@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function insertN() {
+        N = +prompt("Mời nhập số");
+        while (isNaN(N) || !Number.isInteger(N)) {
+            N = +prompt("mời nhập lại số ");
+        }
+        return N
+    }
+
+    function min() {
+        let a = insertN();
+        let b = insertN();
+        let c = insertN();
+        let min = a;
+        if (min > b) {
+            min = b;
+        }
+        if (min > c) {
+            min = c;
+        }document.write(`Số nhỏ nhất là ${min}`)
+        return min;
+    }
+    min()
+
+</script>
+</body>
+</html>

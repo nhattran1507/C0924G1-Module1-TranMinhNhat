@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function createArray() {
+        let n = +prompt("mời nhập độ dài mảng bạn muốn")
+        while (isNaN(n) || !Number.isInteger(n) || n < 0) {
+            n = +prompt("Mời bạn nhập lại")
+        }
+        let numbers = []
+        for (let i = 0; i < n; i++) {
+            numbers[i] = +prompt("thêm phần tử");
+        }document.write(`mảng mới là ${numbers}`)
+        numbers.reverse()
+        document.write(`mảng đảo ngược là ${numbers}`)
+    }
+    createArray()
+</script>
+</body>
+</html>

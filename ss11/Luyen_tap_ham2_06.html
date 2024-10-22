@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function insertN() {
+        let N = +prompt("Mời nhập số");
+        while (isNaN(N) || !Number.isInteger(N)) {
+            N = +prompt("mời nhập lại số ");
+        }
+        return N
+    }
+
+    function checkNumber(){
+        let number=insertN()
+        
+        if (number<0){document.write(`${number} là số nguyên âm`); return false}
+        else {document.write(`${number} là số nguyên dương`); return true}
+    }
+    checkNumber()
+</script>
+</body>
+</html>

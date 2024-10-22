@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function insertN() {
+        N = +prompt("Mời nhập số");
+        while (isNaN(N) || !Number.isInteger(N)) {
+            N = +prompt("mời nhập lại số ");
+        }
+        return N
+    }
+
+    function change() {
+        let a;
+        let b;
+        a = insertN();
+        b = insertN();
+        a = b + (b = a, 0)
+        document.write(`số thứ nhất ${a}<br>`)
+        document.write((`số thứ hai ${b}`))
+    }
+    change()
+</script>
+</body>
+</html>
