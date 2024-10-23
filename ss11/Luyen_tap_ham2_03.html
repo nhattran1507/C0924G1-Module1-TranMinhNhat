@@ -15,14 +15,13 @@
     }
     function factorial() {
         let factorial = 1
-        n=insertN()
         for (let i = 1; i <= n; i++) {
             factorial = factorial * i
         }
         document.write(`N! = là ${factorial}`)
     }
-
-    factorial()
+    n=insertN()
+    factorial(n)
 </script>
 </body>
 </html>

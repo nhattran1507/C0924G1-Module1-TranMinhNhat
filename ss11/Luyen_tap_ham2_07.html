@@ -15,15 +15,15 @@
     }
 
     function change() {
-        let a;
-        let b;
-        a = insertN();
-        b = insertN();
         a = b + (b = a, 0)
         document.write(`số thứ nhất ${a}<br>`)
         document.write((`số thứ hai ${b}`))
     }
-    change()
+    let a;
+    let b;
+    a = insertN();
+    b = insertN();
+    change(a,b)
 </script>
 </body>
 </html>

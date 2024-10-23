@@ -14,11 +14,12 @@
         let numbers = []
         for (let i = 0; i < n; i++) {
             numbers[i] = +prompt("thêm phần tử");
-        }document.write(`mảng mới là ${numbers}`)
-        numbers.reverse()
-        document.write(`mảng đảo ngược là ${numbers}`)
+        }document.write(`mảng mới là ${numbers} <br>`)
     }
-    createArray()
+    function Reverse() {
+        return Reverse.reverse()
+    }
+    document.write(Reverse(createArray()))
 </script>
 </body>
 </html>

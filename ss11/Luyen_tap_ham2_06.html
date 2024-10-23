@@ -15,12 +15,11 @@
     }
 
     function checkNumber(){
-        let number=insertN()
-        
         if (number<0){document.write(`${number} là số nguyên âm`); return false}
         else {document.write(`${number} là số nguyên dương`); return true}
     }
-    checkNumber()
+    let number=insertN()
+    checkNumber(number)
 </script>
 </body>
 </html>

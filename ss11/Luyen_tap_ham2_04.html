@@ -7,13 +7,13 @@
 <body>
 <script>
     function checkn() {
-        let n = +prompt("Mời nhập số");
         if (!isNaN(n)) {
             document.write("là số");
             return true
         } else {document.write("không phải số"); return false}
     }
-    checkn()
+    let n = +prompt("Mời nhập số");
+    checkn(n)
 </script>
 </body>
 </html>

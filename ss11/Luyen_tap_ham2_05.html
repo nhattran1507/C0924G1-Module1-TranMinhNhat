@@ -15,9 +15,6 @@
     }
 
     function min() {
-        let a = insertN();
-        let b = insertN();
-        let c = insertN();
         let min = a;
         if (min > b) {
             min = b;
@@ -27,7 +24,10 @@
         }document.write(`Số nhỏ nhất là ${min}`)
         return min;
     }
-    min()
+    let a = insertN();
+    let b = insertN();
+    let c = insertN();
+    min(a,b,c)
 
 </script>
 </body>

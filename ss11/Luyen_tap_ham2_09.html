@@ -11,31 +11,29 @@
         while (isNaN(n) || !Number.isInteger(n) || n < 0) {
             n = +prompt("Mời bạn nhập lại")
         }
-        let array = [""]
+        let array = []
         for (let i = 0; i < n; i++) {
             array[i] = prompt("thêm phần tử các ký tự");
 
         }
         console.log(array)
-        document.write(`mảng được tạo là ${array}`)
+        document.write(`mảng được tạo là ${array}<br>`)
         return array;
     }
 
     function checkArray() {
-        let array = createArray()
-        let sympol = prompt("mời nhập ký tự");
+        let char = prompt("mời nhập ký tự");
         let count = 0;
-        for (let j = 0; j <= array.length; j++) {
-            if (array[j] === sympol) {
+        for (let j = 0; j < array.length; j++) {
+            if (array[j] === char) {
                 count += 1;
-                document.write(count)
-            } else {
-                document.write("-1")
             }
-        }
-    }
+        }if (count===0) {document.write("-1")}
+        else {document.write(`số lần trùng ký tự ${count}`)}
 
-    checkArray()
+    }
+    let array = createArray()
+    checkArray(array)
 </script>
 </body>
 </html>
