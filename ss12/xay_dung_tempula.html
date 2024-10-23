@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<h2>Hiển thị nhiệt độ tương ứng</h2>
+<div>
+    <label for="celsius">Nhập nhiệt độ (°C):</label>
+    <input type="number" id="celsius" value="25">
+    <button onclick="updateTemperature()">Cập nhật Nhiệt độ</button>
+</div>
+<p>Nhiệt độ Fahrenheit (°F): <span id="fahrenheit"></span></p>
+<p>Nhiệt độ Kelvin (K): <span id="kelvin"></span></p>
+
+<script>
+    class Temperature {
+        constructor(celsius) {
+            this.celsius = celsius >= -273 ? celsius : -273;
+        }
+
+        toFahrenheit() {
+            return (this.celsius * 9) / 5 + 32;
+        }
+
+        toKelvin() {
+            return this.celsius + 273.15;
+        }
+    }
+
+    let temperature = new Temperature(25);
+    document.getElementById('fahrenheit').innerText = temperature.toFahrenheit();
+    document.getElementById('kelvin').innerText = temperature.toKelvin();
+
+    function updateTemperature() {
+        const celsius = parseFloat(document.getElementById('celsius').value);
+        temperature.celsius = celsius >= -273 ? celsius : -273;
+        document.getElementById('fahrenheit').innerText = temperature.toFahrenheit();
+        document.getElementById('kelvin').innerText = temperature.toKelvin();
+    }
+</script>
+</body>
+</html>

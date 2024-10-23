@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+  class Rectangle{
+    width;
+    height;
+    constructor(width, height){
+      this.width = width;
+      this.height = height;
+    }
+    getWidth(){
+      return this.width;
+    }
+    getHeight(){
+      return this.height;
+    }
+    setWidth(width){
+      this.width = width;
+    }
+    setHeight(height){
+      this.height = height;
+    }
+    getArea(){
+      return this.width * this.height;
+    }
+    getPerimeter(){
+      return (this.width + this.height) * 2;
+    }
+  }
+  let myRectangle = new Rectangle(800,400);
+  let width = myRectangle.getWidth();
+  let height = myRectangle.getHeight();
+  let area = myRectangle.getArea();
+  let perimeter = myRectangle.getPerimeter();
+  document.write(`<br>`);
+  document.write(`Area = ${area}`);
+  document.write(`<br>`);
+  document.write(`Area = ${perimeter}`);
+
+  let canvas = document.getElementById("canvas");
+  let ctx = canvas.getContext('2d');
+  ctx.fillStyle='blue';
+  ctx.fillRect(10,10,width,height);
+
+
+</script>
+</body>
+</html>
