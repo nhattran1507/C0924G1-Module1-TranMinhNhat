@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Car Game</title>
+  <style>
+    canvas {
+      border: 2px solid black;
+      background: #e0e0e0;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+<h2>Simple Car Game</h2>
+<p>Use arrow keys to change direction, hold <b>Ctrl</b> to speed up.</p>
+<canvas id="gameCanvas" width="800" height="600"></canvas>
+<p>Score: <span id="score">0</span></p>
+<p id="gameStatus"></p>
+
+<script>
+  const canvas = document.getElementById('gameCanvas');
+  const ctx = canvas.getContext('2d');
+
+  const car = {
+    x: 100,
+    y: 100,
+    width: 40,
+    height: 20,
+    speed: 2,
+    directionX: 1,
+    directionY: 0,
+  };
+
+  const obstacles = [
+    { x: 300, y: 200, width: 50, height: 50 },
+    { x: 500, y: 400, width: 50, height: 50 },
+  ];
+
+  const rewards = [
+    { x: 150, y: 150, width: 20, height: 20 },
+    { x: 600, y: 350, width: 20, height: 20 },
+  ];
+
+  let score = 0;
+  let gameRunning = true;
+
+  function drawCar() {
+    ctx.fillStyle = 'blue';
+    ctx.fillRect(car.x, car.y, car.width, car.height);
+  }
+
+  function drawObstacles() {
+    ctx.fillStyle = 'red';
+    obstacles.forEach(obstacle => {
+      ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+    });
+  }
+
+  function drawRewards() {
+    ctx.fillStyle = 'gold';
+    rewards.forEach(reward => {
+      ctx.fillRect(reward.x, reward.y, reward.width, reward.height);
+    });
+  }
+
+  function clearCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+
+  function updatePosition() {
+    car.x += car.directionX * car.speed;
+    car.y += car.directionY * car.speed;
+
+    // Check collisions with canvas borders
+    if (car.x < 0) car.x = 0;
+    if (car.y < 0) car.y = 0;
+    if (car.x + car.width > canvas.width) car.x = canvas.width - car.width;
+    if (car.y + car.height > canvas.height) car.y = canvas.height - car.height;
+
+    // Check collisions with obstacles
+    obstacles.forEach(obstacle => {
+      if (
+              car.x < obstacle.x + obstacle.width &&
+              car.x + car.width > obstacle.x &&
+              car.y < obstacle.y + obstacle.height &&
+              car.y + car.height > obstacle.y
+      ) {
+        gameRunning = false;
+        document.getElementById('gameStatus').innerText = 'Game Over! You hit an obstacle.';
+      }
+    });
+
+    // Check collisions with rewards
+    rewards.forEach((reward, index) => {
+      if (
+              car.x < reward.x + reward.width &&
+              car.x + car.width > reward.x &&
+              car.y < reward.y + reward.height &&
+              car.y + car.height > reward.y
+      ) {
+        score += 10;
+        document.getElementById('score').innerText = score;
+        rewards.splice(index, 1); // Remove collected reward
+      }
+    });
+  }
+
+  function draw() {
+    if (!gameRunning) return;
+    clearCanvas();
+    drawCar();
+    drawObstacles();
+    drawRewards();
+    updatePosition();
+    requestAnimationFrame(draw);
+  }
+
+  function changeDirection(event) {
+    switch (event.key) {
+      case 'ArrowUp':
+        car.directionX = 0;
+        car.directionY = -1;
+        break;
+      case 'ArrowDown':
+        car.directionX = 0;
+        car.directionY = 1;
+        break;
+      case 'ArrowLeft':
+        car.directionX = -1;
+        car.directionY = 0;
+        break;
+      case 'ArrowRight':
+        car.directionX = 1;
+        car.directionY = 0;
+        break;
+    }
+
+    // Increase speed when holding Ctrl
+    if (event.ctrlKey) {
+      car.speed = 5;
+    }
+  }
+
+  function resetSpeed(event) {
+    if (!event.ctrlKey) {
+      car.speed = 2;
+    }
+  }
+
+  document.addEventListener('keydown', changeDirection);
+  document.addEventListener('keyup', resetSpeed);
+
+  draw();
+</script>
+</body>
+</html>

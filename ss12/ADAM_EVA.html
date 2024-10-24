@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+  class Apple {
+    constructor() {
+      this._weight = 10; // Khối lượng mặc định của quả táo
+    }
+    getWeight() {
+      return this._weight;
+    }
+    reduceWeight() {
+      if (this._weight > 0) {
+        this._weight--;
+      }
+    }
+  }
+
+  class Human {
+    constructor(name, gender, weight) {
+      this.name = name;   // Tên của người
+      this.gender = gender; // Giới tính của người
+      this.weight = weight; // Cân nặng của người
+    }
+    speak(words) {
+      console.log(`${this.name} nói: "${words}"`);
+    }
+    eat(apple) {
+      if (apple.getWeight() > 0) {
+        this.weight++; // Tăng cân nặng lên 1 đv
+        apple.reduceWeight(); // Giảm khối lượng quả táo đi 1 đv
+        console.log(`${this.name} đã ăn một miếng táo! Cân nặng hiện tại: ${this.weight} đv.`);
+      } else {
+        console.log(`Quả táo đã hết! ${this.name} không thể ăn.`);
+      }
+    }
+    checkAppleWeight(apple) {
+      console.log(`Khối lượng quả táo hiện tại: ${apple.getWeight()} đv.`);
+    }
+  }
+
+  // Mô phỏng câu chuyện Adam và Eva
+  function simulate() {
+    const apple = new Apple(); // Tạo một quả táo
+    const adam = new Human("Adam", "Nam", 70); // Tạo Adam
+    const eva = new Human("Eva", "Nữ", 60); // Tạo Eva
+
+    // Adam và Eva lần lượt ăn táo cho đến khi hết táo
+    while (apple.getWeight() > 0) {
+      adam.eat(apple); // Adam ăn táo
+      adam.checkAppleWeight(apple); // Kiểm tra khối lượng táo
+      if (apple.getWeight() > 0) {
+        eva.eat(apple); // Eva ăn táo
+        eva.checkAppleWeight(apple); // Kiểm tra khối lượng táo
+      }
+    }
+
+    // Thông báo kết thúc
+    console.log("Câu chuyện kết thúc! Quả táo đã hết.");
+  }
+
+  // Chạy mô phỏng
+  simulate();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile Demo</title>
+  <script src="mobi.js"></script>
+</head>
+<body>
+<h2>Quản lý điện thoại</h2>
+<button onclick="testMobile()">Thực hiện kịch bản</button>
+<pre id="output"></pre>
+
+<script>
+  // Hàm thực hiện kịch bản
+  function testMobile() {
+    // Tạo hai đối tượng điện thoại
+    const nokia = new Mobile("Nokia");
+    const iphone = new Mobile("iPhone");
+
+    // Bật điện thoại Nokia
+    nokia.turnOn();
+
+    // Soạn tin nhắn
+    nokia.composeMessage("Chào bạn, đây là tin nhắn đầu tiên!");
+
+    // Gửi tin nhắn tới iPhone
+    nokia.sendMessage(iphone);
+
+    // Bật điện thoại iPhone
+    iphone.turnOn();
+
+    // Kiểm tra inbox và hiển thị tin nhắn
+    iphone.viewInbox();
+
+    // Hiển thị output
+    const output = document.getElementById('output');
+    output.innerText = `${nokia.brand} trạng thái pin: ${nokia.battery}\n` +
+            `${iphone.brand} trạng thái pin: ${iphone.battery}`;
+  }
+</script>
+</body>
+</html>

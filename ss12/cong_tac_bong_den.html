@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Background Light Switch</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      transition: background-color 0.5s;
+    }
+    #status {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    #toggleButton {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<div id="status">The light bulb is off.</div>
+<button id="toggleButton">Toggle Switch</button>
+
+<script>
+  // Lớp Bóng đèn (LightBulb)
+  class LightBulb {
+    constructor() {
+      this.isOn = false; // Trạng thái mặc định là tắt
+      this.currentColor = 'black'; // Màu nền mặc định
+    }
+
+    turnOn() {
+      this.isOn = true;
+      this.currentColor = this.getRandomColor();
+    }
+
+    turnOff() {
+      this.isOn = false;
+      this.currentColor = 'black';
+    }
+
+    getStatus() {
+      return this.isOn ? "The light bulb is on." : "The light bulb is off.";
+    }
+
+    isOnStatus() {
+      return this.isOn;
+    }
+
+    getRandomColor() {
+      // Tạo màu ngẫu nhiên
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    getCurrentColor() {
+      return this.currentColor;
+    }
+  }
+
+  // Lớp Công tắc (Switch)
+  class Switch {
+    constructor(lightBulb) {
+      this.lightBulb = lightBulb;
+      this.isOn = false; // Trạng thái mặc định là tắt
+    }
+
+    toggle() {
+      this.isOn = !this.isOn; // Đảo ngược trạng thái công tắc
+      if (this.isOn) {
+        this.lightBulb.turnOn();
+      } else {
+        this.lightBulb.turnOff();
+      }
+    }
+  }
+
+  // Khởi tạo đối tượng bóng đèn và công tắc
+  const lightBulb = new LightBulb();
+  const switchControl = new Switch(lightBulb);
+
+  // Lấy các phần tử HTML
+  const statusDiv = document.getElementById('status');
+  const toggleButton = document.getElementById('toggleButton');
+
+  // Cập nhật giao diện
+  function updateUI() {
+    statusDiv.textContent = lightBulb.getStatus();
+    document.body.style.backgroundColor = lightBulb.getCurrentColor();
+    statusDiv.style.color = lightBulb.isOnStatus() ? 'black' : 'white';
+  }
+
+  // Sự kiện khi nhấn vào nút công tắc
+  toggleButton.addEventListener('click', () => {
+    switchControl.toggle();
+    updateUI();
+  });
+
+  // Sự kiện khi nhấn phím Space
+  document.addEventListener('keydown', (event) => {
+    if (event.code === 'Space') {
+      event.preventDefault(); // Ngăn trình duyệt cuộn khi nhấn Space
+      switchControl.toggle();
+      updateUI();
+    }
+  });
+
+  // Khởi tạo giao diện ban đầu
+  updateUI();
+</script>
+</body>
+</html>

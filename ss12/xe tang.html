@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Tank Game</title>
+    <style>
+        canvas {
+            border: 2px solid black;
+            background: #e0e0e0;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<h2>Advanced Tank Game</h2>
+<p>Use arrow keys to move the tank, and press <b>Space</b> to shoot.</p>
+<canvas id="gameCanvas" width="800" height="600"></canvas>
+<p>Score: <span id="score">0</span> | Level: <span id="level">1</span></p>
+<p id="gameStatus"></p>
+<script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    const tank = {
+        x: 400,
+        y: 300,
+        width: 40,
+        height: 40,
+        direction: 'up',
+        speed: 3,
+    };
+
+    const bullets = [];
+    let targets = [];
+    let score = 0;
+    let level = 1;
+    let maxLevels = 10;
+    let gameRunning = true;
+
+    function createTargets(level) {
+        targets = [];
+        for (let i = 0; i < level + 2; i++) {
+            const targetX = Math.random() * (canvas.width - 40);
+            const targetY = Math.random() * (canvas.height - 40);
+            targets.push({ x: targetX, y: targetY, width: 40, height: 40, speed: Math.random() * 2 + 1 });
+        }
+    }
+
+    function drawTank() {
+        ctx.fillStyle = 'green';
+        ctx.fillRect(tank.x, tank.y, tank.width, tank.height);
+
+        ctx.fillStyle = 'black';
+        if (tank.direction === 'up') {
+            ctx.fillRect(tank.x + tank.width / 2 - 2, tank.y - 10, 4, 10);
+        } else if (tank.direction === 'down') {
+            ctx.fillRect(tank.x + tank.width / 2 - 2, tank.y + tank.height, 4, 10);
+        } else if (tank.direction === 'left') {
+            ctx.fillRect(tank.x - 10, tank.y + tank.height / 2 - 2, 10, 4);
+        } else if (tank.direction === 'right') {
+            ctx.fillRect(tank.x + tank.width, tank.y + tank.height / 2 - 2, 10, 4);
+        }
+    }
+
+    function drawBullets() {
+        ctx.fillStyle = 'red';
+        bullets.forEach((bullet, index) => {
+            ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+
+            if (bullet.direction === 'up') bullet.y -= bullet.speed;
+            if (bullet.direction === 'down') bullet.y += bullet.speed;
+            if (bullet.direction === 'left') bullet.x -= bullet.speed;
+            if (bullet.direction === 'right') bullet.x += bullet.speed;
+
+            if (
+                bullet.x < 0 || bullet.x > canvas.width ||
+                bullet.y < 0 || bullet.y > canvas.height
+            ) {
+                bullets.splice(index, 1);
+            }
+
+            targets.forEach((target, targetIndex) => {
+                if (
+                    bullet.x < target.x + target.width &&
+                    bullet.x + bullet.width > target.x &&
+                    bullet.y < target.y + target.height &&
+                    bullet.y + bullet.height > target.y
+                ) {
+                    bullets.splice(index, 1);
+                    targets.splice(targetIndex, 1);
+                    score += 10;
+                    document.getElementById('score').innerText = score;
+                }
+            });
+        });
+    }
+
+    function drawTargets() {
+        ctx.fillStyle = 'brown';
+        targets.forEach(target => {
+            ctx.fillRect(target.x, target.y, target.width, target.height);
+        });
+    }
+
+    function moveTargets() {
+        targets.forEach(target => {
+            target.y += target.speed;
+            if (target.y + target.height > canvas.height || target.y < 0) {
+                target.speed *= -1;
+            }
+        });
+    }
+
+    function clearCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function update() {
+        if (!gameRunning) return;
+
+        clearCanvas();
+        drawTank();
+        drawBullets();
+        drawTargets();
+        moveTargets();
+
+        if (targets.length === 0) {
+            if (level < maxLevels) {
+                level++;
+                document.getElementById('level').innerText = level;
+                createTargets(level);
+            } else {
+                gameRunning = false;
+                document.getElementById('gameStatus').innerText = 'Congratulations! You have won the game!';
+            }
+        }
+
+        requestAnimationFrame(update);
+    }
+
+    function moveTank(event) {
+        if (!gameRunning) return;
+        switch (event.key) {
+            case 'ArrowUp':
+                tank.y -= tank.speed;
+                tank.direction = 'up';
+                break;
+            case 'ArrowDown':
+                tank.y += tank.speed;
+                tank.direction = 'down';
+                break;
+            case 'ArrowLeft':
+                tank.x -= tank.speed;
+                tank.direction = 'left';
+                break;
+            case 'ArrowRight':
+                tank.x += tank.speed;
+                tank.direction = 'right';
+                break;
+            case ' ': // Space key to shoot
+                shoot();
+                break;
+        }
+    }
+
+    function shoot() {
+        bullets.push({
+            x: tank.x + tank.width / 2 - 2,
+            y: tank.y + tank.height / 2 - 2,
+            width: 4,
+            height: 4,
+            direction: tank.direction,
+            speed: 5,
+        });
+    }
+
+    document.addEventListener('keydown', moveTank);
+
+    createTargets(level);
+    update();
+</script>
+</body>
+</html>
