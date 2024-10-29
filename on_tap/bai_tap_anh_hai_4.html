@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function fixString(input) {
+        let result = "";
+
+        for (let i = 0; i < input.length; i++) {
+            let char = input[i];
+
+            // Kiểm tra nếu ký tự là chữ cái in hoa
+            if (char >= 'A' && char <= 'Z') {
+                // Nếu không phải là ký tự đầu tiên, thêm dấu cách trước ký tự in hoa
+                if (i !== 0) {
+                    result += " ";
+                }
+
+                // Chuyển ký tự in hoa thành in thường
+                char = char.toLowerCase();
+            }
+
+            // Thêm ký tự vào kết quả
+            result += char;
+        }
+
+        return result;
+    }
+
+    // Ví dụ
+    console.log(fixString("HelloWorld")); // Output: "hello world"
+    console.log(fixString("ILoveJavaScript")); // Output: "i love java script"
+
+</script>
+</body>
+</html>

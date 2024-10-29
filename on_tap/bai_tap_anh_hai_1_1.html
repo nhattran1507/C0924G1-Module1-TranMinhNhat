@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function createArray() {
+        let n;
+        do {
+            n = +prompt("Mời nhập số phần tử trong mảng")
+        }
+        while (isNaN(n) || !Number.isInteger(n))
+        let numbers = [];
+        for (let i = 0; i < n; i++) {
+            let num;
+            do {
+                num = +prompt(`Mời nhập phẩn tử số nguyên thử ${i + 1}`)
+            }
+            while (isNaN(num) || !Number.isInteger(num));
+            numbers.push(num)
+        }
+        return numbers
+    }
+
+    function checkEqualFrequency() {
+        let array = createArray();
+        let count = new Map();
+        for (let num of array) {
+            count.set(num, (count.get(num) || 0) + 1);
+        }
+        let frequenciesSet = new Set(count.values());
+        let result = frequenciesSet.size === 1;
+        document.write(`kết quả: ${result}`)
+        return result
+    }
+    checkEqualFrequency()
+</script>
+</body>
+</html>

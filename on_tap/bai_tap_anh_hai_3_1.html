@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function createArray() {
+        let n;
+        do {
+            n = +prompt("Mời nhập số phần tử trong mảng:");
+        } while (isNaN(n) || !Number.isInteger(n));
+
+        let numbers = [];
+        for (let i = 0; i < n; i++) {
+            let num;
+            do {
+                num = +prompt(`Mời nhập phần tử số nguyên thứ ${i + 1}:`);
+            } while (isNaN(num) || !Number.isInteger(num));
+            numbers.push(num);
+        }
+        return numbers;
+    }
+
+    function isBeautifulArray() {
+        let array = createArray();
+
+// Tính tổng toàn bộ mảng
+        const totalSum = array.reduce((acc, num) => acc + num, 0);
+        let leftSum = 0;
+
+// Kiểm tra từng vị trí trong mảng để tìm phần tử chia mảng thành 2 phần bằng nhau
+        for (let i = 0; i < array.length; i++) {
+// Tính tổng các phần tử bên phải bằng cách trừ phần tử hiện tại và leftSum từ totalSum
+            const rightSum = totalSum - leftSum - array[i];
+
+// Nếu tổng bên trái bằng tổng bên phải, trả về true và thông báo
+            if (leftSum === rightSum) {
+                document.write("Mảng đẹp");
+                return true;
+            }
+
+// Cập nhật leftSum cho lần lặp tiếp theo
+            leftSum += array[i];
+        }
+
+// Nếu không tìm thấy phần tử nào thỏa mãn, trả về false và thông báo
+        document.write("Mảng không đẹp");
+        return false;
+    }
+
+    // Gọi hàm để thực hiện
+    isBeautifulArray();
+</script>
+</body>
+</html>

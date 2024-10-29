@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi Tiết Khoản Vay</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    h2 {
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .back-button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-top: 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .back-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>Chi Tiết Khoản Vay</h2>
+  <p id="customerInfo"></p>
+  <table>
+    <thead>
+    <tr>
+      <th>Kỳ</th>
+      <th>Số Tiền Phải Trả Hàng Tháng</th>
+    </tr>
+    </thead>
+    <tbody id="paymentDetails"></tbody>
+  </table>
+  <button class="back-button" onclick="goBack()">Quay Lại</button>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    let customer = JSON.parse(sessionStorage.getItem("customerDetails"));
+    if (customer) {
+      document.getElementById("customerInfo").textContent =
+              `CCCD: ${customer.cccd}, Tên: ${customer.name}, Tổng Thanh Toán: ${customer.totalPayment} VND`;
+
+      let paymentDetails = document.getElementById("paymentDetails");
+      customer.monthlyPayments.forEach((payment, index) => {
+        let row = `<tr><td>Kỳ ${index + 1}</td><td>${payment} VND</td></tr>`;
+        paymentDetails.innerHTML += row;
+      });
+    } else {
+      document.body.innerHTML = "<p>Không tìm thấy thông tin khách hàng.</p>";
+    }
+  });
+
+  function goBack() {
+    window.history.back();
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function createArray() {
+        let n;
+        do {
+            n = +prompt("Mời nhập số phần tử trong mảng")
+        }
+        while (isNaN(n) || !Number.isInteger(n))
+        let numbers = []
+        for (let i = 0; i < n; i++) {
+            let num;
+            do {
+                num = +prompt(`Mời nhập phẩn tử số nguyên thứ ${i + 1}`)
+            }
+            while (isNaN(num) || !Number.isInteger(num));
+            numbers.push(num)
+        }
+        return numbers
+    }
+
+    function isBeautifulArray() {
+        let array = createArray();
+        for (let i = 1; i < array.length - 1; i++) {
+            let leftsum = 0;
+            let rightsum = 0;
+            for (let j = 0; j < i; j++) {
+                leftsum += array[j]
+            }
+            for (let k = i + 1; k < array.length; k++) {
+                rightsum += array[k]
+            }
+            if (leftsum === rightsum) {
+                document.write("mảng đẹp")
+                return true;
+            }
+        }
+        document.write("mảng xấu vcl")
+        return false
+    }
+
+    isBeautifulArray()
+</script>
+</body>
+</html>

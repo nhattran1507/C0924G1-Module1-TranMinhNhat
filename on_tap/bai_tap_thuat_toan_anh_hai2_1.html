@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function commonCharacterCount(s1, s2) {
+        // Tạo các đối tượng để đếm số lần xuất hiện của từng ký tự
+        const count1 = {};
+        const count2 = {};
+
+        // Đếm số lần xuất hiện của từng ký tự trong s1
+        for (let char of s1) {
+            count1[char] = (count1[char] || 0) + 1;
+        }
+
+        // Đếm số lần xuất hiện của từng ký tự trong s2
+        for (let char of s2) {
+            count2[char] = (count2[char] || 0) + 1;
+        }
+
+        // Tính số lượng ký tự chung
+        let commonCount = 0;
+        for (let char in count1) {
+            if (count2[char]) {
+                commonCount += Math.min(count1[char], count2[char]);
+            }
+        }
+
+        return commonCount;
+    }
+
+    // Ví dụ
+    const s1 = "aabcc";
+    const s2 = "adcaa";
+    console.log(commonCharacterCount(s1, s2)); // Output: 3
+
+</script>
+</body>
+</html>

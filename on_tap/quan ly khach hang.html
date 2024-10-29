@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Khách Hàng Vay Ngân Hàng</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            background-color: #28a745;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button.delete-btn {
+            background-color: #dc3545; /* Màu đỏ cho nút Xóa */
+        }
+        button.edit-btn {
+            background-color: #007bff; /* Màu xanh cho nút Chỉnh Sửa */
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Quản Lý Khách Hàng Vay Ngân Hàng</h1>
+
+    <div class="form-group">
+        <label for="searchCustomer">Tìm Kiếm Khách Hàng:</label>
+        <input type="text" id="searchCustomer" oninput="searchCustomer()" placeholder="Nhập tên hoặc CCCD khách hàng để tìm..."/>
+    </div>
+
+    <div class="form-group">
+        <label for="cccd">CCCD:</label>
+        <input type="text" id="cccd" maxlength="12" oninput="validateCCCD()" placeholder="Nhập số CCCD (tối đa 12 ký tự số)"/>
+    </div>
+    <div class="form-group">
+        <label for="name">Tên Khách Hàng:</label>
+        <input type="text" id="name"/>
+    </div>
+    <div class="form-group">
+        <label for="loanAmount">Số Tiền Vay:</label>
+        <input type="number" id="loanAmount"/>
+    </div>
+    <div class="form-group">
+        <label for="interestRate">Lãi Suất (%):</label>
+        <input type="number" id="interestRate"/>
+    </div>
+    <div class="form-group">
+        <label for="loanTerm">Thời Gian Vay (tháng):</label>
+        <input type="number" id="loanTerm"/>
+    </div>
+    <div class="form-group">
+        <label for="loanStartDate">Ngày Bắt Đầu Vay:</label>
+        <input type="date" id="loanStartDate"/>
+    </div>
+    <button onclick="addCustomer()" id="saveButton">Thêm Khách Hàng</button>
+
+    <table id="customerTable">
+        <thead>
+        <tr>
+            <th>CCCD</th>
+            <th>Tên</th>
+            <th>Số Tiền Vay</th>
+            <th>Lãi Suất</th>
+            <th>Thời Gian Vay</th>
+            <th>Số Tiền Phải Trả Hàng Tháng</th>
+            <th>Tổng Thanh Toán</th>
+            <th>Ngày Trả Gần Nhất</th>
+            <th>Hành Động</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+<p id="totalCustomers">Tổng số khách hàng: 0</p>
+
+<script>
+    let customers = [];
+    let editingCustomerId = null;
+
+    function getInputValues() {
+        return {
+            cccd: document.getElementById("cccd").value,
+            name: document.getElementById("name").value,
+            loanAmount: parseFloat(document.getElementById("loanAmount").value),
+            interestRate: parseFloat(document.getElementById("interestRate").value),
+            loanTerm: parseInt(document.getElementById("loanTerm").value),
+            loanStartDate: document.getElementById("loanStartDate").value
+        };
+    }
+
+    function clearForm() {
+        document.getElementById("cccd").value = "";
+        document.getElementById("name").value = "";
+        document.getElementById("loanAmount").value = "";
+        document.getElementById("interestRate").value = "";
+        document.getElementById("loanTerm").value = "";
+        editingCustomerId = null;
+        document.getElementById("saveButton").textContent = "Thêm Khách Hàng";
+    }
+
+    function calculateLoanDetails(loanAmount, interestRate, loanTerm) {
+        let monthlyPrincipal = loanAmount / loanTerm;  // Gốc hàng tháng
+        let monthlyPayments = [];
+        let remainingPrincipal = loanAmount;
+
+        for (let i = 1; i <= loanTerm; i++) {
+            let monthlyInterest = remainingPrincipal * (interestRate / 100) / 12;  // Lãi suất hàng tháng theo số dư gốc giảm dần
+            let totalMonthlyPayment = monthlyPrincipal + monthlyInterest;
+            monthlyPayments.push(totalMonthlyPayment.toFixed(2));
+
+            // Giảm số dư gốc sau mỗi lần thanh toán
+            remainingPrincipal -= monthlyPrincipal;
+        }
+
+        let totalPayment = monthlyPayments.reduce((sum, payment) => sum + parseFloat(payment), 0).toFixed(2);
+
+        return {
+            monthlyPayments: monthlyPayments,
+            totalPayment: totalPayment
+        };
+    }
+
+    function calculateNextDueDate() {
+        let today = new Date();
+        let nextDueDate = new Date(today.getFullYear(), today.getMonth(), 15);
+        if (today.getDate() > 15) {
+            nextDueDate.setMonth(nextDueDate.getMonth() + 1);
+        }
+        return nextDueDate.toLocaleDateString();
+    }
+
+    function validateCCCD() {
+        const cccdInput = document.getElementById("cccd");
+        cccdInput.value = cccdInput.value.replace(/[^0-9]/g, ''); // Chỉ cho phép nhập số từ 0-9
+    }
+
+    function addCustomer() {
+        let { cccd, name, loanAmount, interestRate, loanTerm, loanStartDate } = getInputValues();
+        if (cccd && name && loanAmount && interestRate && loanTerm && loanStartDate) {
+            let { monthlyPayments, totalPayment } = calculateLoanDetails(loanAmount, interestRate, loanTerm);
+            let nextDueDate = calculateNextDueDate();
+
+            if (editingCustomerId) {
+                customers = customers.map(customer =>
+                    customer.id === editingCustomerId ? { ...customer, cccd, name, loanAmount, interestRate, loanTerm, monthlyPayments, totalPayment, nextDueDate, loanStartDate } : customer
+                );
+            } else {
+                let newCustomer = {
+                    id: Date.now(),
+                    cccd,
+                    name,
+                    loanAmount,
+                    interestRate,
+                    loanTerm,
+                    monthlyPayments,
+                    totalPayment,
+                    nextDueDate,
+                    loanStartDate
+                };
+                customers.push(newCustomer);
+            }
+            renderCustomers(customers);
+            clearForm();
+        } else {
+            alert("Vui lòng nhập đầy đủ thông tin!");
+        }
+    }
+
+    function deleteCustomer(id) {
+        customers = customers.filter(customer => customer.id !== id);
+        renderCustomers(customers);
+    }
+
+    function editCustomer(id) {
+        let customer = customers.find(cust => cust.id === id);
+        if (customer) {
+            document.getElementById("cccd").value = customer.cccd;
+            document.getElementById("name").value = customer.name;
+            document.getElementById("loanAmount").value = customer.loanAmount;
+            document.getElementById("interestRate").value = customer.interestRate;
+            document.getElementById("loanTerm").value = customer.loanTerm;
+            editingCustomerId = id;
+            document.getElementById("saveButton").textContent = "Cập Nhật Khách Hàng";
+        }
+    }
+    function viewDetails(id) {
+        let customer = customers.find(cust => cust.id === id);
+        if (customer) {
+            sessionStorage.setItem("customerDetails", JSON.stringify(customer));
+            window.open("payment-details.html", "_blank");
+        }
+    }
+
+    function renderCustomers(customerList) {
+        let customerTableBody = document.getElementById("customerTable").getElementsByTagName("tbody")[0];
+        customerTableBody.innerHTML = customerList.map(customer => {
+            let startDate = new Date(customer.loanStartDate);
+            let currentDate = new Date();
+            let monthsSinceStart = (currentDate.getFullYear() - startDate.getFullYear()) * 12 + (currentDate.getMonth() - startDate.getMonth());
+            let currentPayment = customer.monthlyPayments[monthsSinceStart] || "N/A";
+
+            return `
+            <tr>
+                <td>${customer.cccd}</td>
+                <td>${customer.name}</td>
+                <td>${customer.loanAmount.toLocaleString()} VND</td>
+                <td>${customer.interestRate}%</td>
+                <td>${customer.loanTerm} tháng</td>
+                <td>${currentPayment} VND</td>
+                <td>${customer.totalPayment} VND</td>
+                <td>${customer.nextDueDate}</td>
+                <td>
+                    <button class="edit-btn" onclick="editCustomer(${customer.id})">Chỉnh Sửa</button>
+                    <button class="delete-btn" onclick="deleteCustomer(${customer.id})">Xóa</button>
+                    <button class="details-btn" onclick="viewDetails(${customer.id})">Xem Chi Tiết</button>
+                </td>
+            </tr>
+        `;
+        }).join('');
+
+        document.getElementById("totalCustomers").textContent = `Tổng số khách hàng: ${customerList.length}`;
+    }
+
+    function searchCustomer() {
+        let searchQuery = document.getElementById("searchCustomer").value.toLowerCase();
+        let filteredCustomers = customers.filter(customer =>
+            customer.name.toLowerCase().includes(searchQuery) ||
+            customer.cccd.toLowerCase().includes(searchQuery)
+        );
+        renderCustomers(filteredCustomers);
+    }
+</script>
+
+</body>
+</html>

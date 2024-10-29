@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enhanced Snake Game</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(45deg, #333, #555);
+      color: #eee;
+      font-family: Arial, sans-serif;
+    }
+    canvas {
+      border: 2px solid #eee;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    .score {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+<div class="score">Score: 0</div>
+<canvas id="game" width="800" height="800"></canvas>
+<script>
+  const canvas = document.getElementById('game');
+  const context = canvas.getContext('2d');
+  const scoreDisplay = document.querySelector('.score');
+  const grid = 16;
+  let count = 0;
+  let score = 0;
+
+  const snake = {
+    x: 160,
+    y: 160,
+    dx: grid,
+    dy: 0,
+    cells: [],
+    maxCells: 4
+  };
+
+  const apple = { x: 320, y: 320 };
+
+  const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+
+  const placeApple = () => {
+    apple.x = getRandomInt(0, canvas.width / grid) * grid;
+    apple.y = getRandomInt(0, canvas.height / grid) * grid;
+
+    // Ensure apple is not placed on the snake
+    if (snake.cells.some(cell => cell.x === apple.x && cell.y === apple.y)) {
+      placeApple();
+    }
+  };
+
+  const drawApple = () => {
+    const gradient = context.createRadialGradient(
+            apple.x + grid / 2,
+            apple.y + grid / 2,
+            2,
+            apple.x + grid / 2,
+            apple.y + grid / 2,
+            grid / 2
+    );
+    gradient.addColorStop(0, 'rgba(255, 80, 80, 1)');
+    gradient.addColorStop(1, 'rgba(200, 0, 0, 1)');
+    context.fillStyle = gradient;
+    context.fillRect(apple.x, apple.y, grid - 1, grid - 1);
+  };
+
+  const drawSnake = () => {
+    snake.cells.forEach((cell, index) => {
+      const hue = (index * 10 + performance.now() / 20) % 360;
+      context.fillStyle = `hsl(${hue}, 100%, 50%)`;
+      context.fillRect(cell.x, cell.y, grid - 1, grid - 1);
+    });
+  };
+
+  const resetGame = () => {
+    snake.x = 160;
+    snake.y = 160;
+    snake.cells = [];
+    snake.maxCells = 4;
+    snake.dx = grid;
+    snake.dy = 0;
+    score = 0; // Reset score
+    updateScoreDisplay();
+    placeApple();
+  };
+
+  const updateScoreDisplay = () => {
+    scoreDisplay.textContent = `Score: ${score}`;
+  };
+
+  const updateSnakePosition = () => {
+    snake.x += snake.dx;
+    snake.y += snake.dy;
+
+    // Wrap the snake position on the edges of the screen
+    snake.x = snake.x < 0 ? canvas.width - grid : snake.x >= canvas.width ? 0 : snake.x;
+    snake.y = snake.y < 0 ? canvas.height - grid : snake.y >= canvas.height ? 0 : snake.y;
+
+    snake.cells.unshift({ x: snake.x, y: snake.y });
+    if (snake.cells.length > snake.maxCells) snake.cells.pop();
+  };
+
+  const checkCollision = () => {
+    // Check collision with the apple
+    if (snake.x === apple.x && snake.y === apple.y) {
+      snake.maxCells++;
+      score += 10; // Increase score by 10 for each apple eaten
+      updateScoreDisplay();
+      placeApple();
+    }
+
+    // Check collision with itself
+    for (let i = 1; i < snake.cells.length; i++) {
+      if (snake.x === snake.cells[i].x && snake.y === snake.cells[i].y) {
+        resetGame();
+        break;
+      }
+    }
+  };
+
+  const gameLoop = () => {
+    requestAnimationFrame(gameLoop);
+
+    if (++count < 4) return;
+    count = 0;
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    updateSnakePosition();
+    drawApple();
+    drawSnake();
+    checkCollision();
+  };
+
+  document.addEventListener('keydown', (e) => {
+    // Prevent the snake from reversing
+    if (e.code === 'ArrowLeft' && snake.dx === 0) {
+      snake.dx = -grid;
+      snake.dy = 0;
+    } else if (e.code === 'ArrowUp' && snake.dy === 0) {
+      snake.dx = 0;
+      snake.dy = -grid;
+    } else if (e.code === 'ArrowRight' && snake.dx === 0) {
+      snake.dx = grid;
+      snake.dy = 0;
+    } else if (e.code === 'ArrowDown' && snake.dy === 0) {
+      snake.dx = 0;
+      snake.dy = grid;
+    }
+  });
+
+  placeApple();
+  requestAnimationFrame(gameLoop);
+</script>
+</body>
+</html>

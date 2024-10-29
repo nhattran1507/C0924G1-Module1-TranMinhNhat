@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function createArray() {
+        n = +prompt("mời nhập số dãy bạn muốn tạo")
+        while (isNaN(n) || !Number.isInteger(n)) {
+            n = +prompt("mời nhập lại số")
+        }
+        let numbers = []
+        for (let i = 0; i < n; i++) {
+            numbers[i] = +prompt("Mời nhập số")
+            while (isNaN(numbers[i]) || !Number.isInteger(numbers[i])) {
+                numbers[i] = +prompt("mời nhập lại số")
+            }
+        }
+        return numbers
+
+
+    }
+
+    function checkEqualFrequency() {
+        // Chuyển đổi chuỗi thành mảng số nguyên
+        let array = createArray()
+
+        // Đếm tần số xuất hiện của từng số
+        let count = {};
+        for (let num of array) {
+            count[num] = (count[num] || 0) + 1;
+        }
+
+        // Lấy tất cả các giá trị của đối tượng frequency (tức là các tần số)
+        let counts = Object.values(count);
+
+        // Lấy tần số đầu tiên để so sánh
+        const firstcount = counts[0];
+
+        // Kiểm tra xem tất cả các tần số có bằng tần số đầu tiên không
+        for (let freq of counts) {
+            if (freq !== firstcount) {
+                document.write('Kết quả false <br>')
+                return false;
+            }
+        }
+        document.write('Kết quả là true <br>')
+        return true;
+
+    }
+
+    checkEqualFrequency()
+
+</script>
+</body>
+</html>
