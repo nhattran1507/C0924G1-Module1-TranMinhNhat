@@ -79,26 +79,22 @@
         let address = document.getElementById("address").value;
         let salary = parseFloat(document.getElementById("salary").value);
         let position = document.getElementById("position").value;
-
-        if (!name || !birthday || !address || isNaN(salary) || !position) {
-            alert("Vui lòng nhập đầy đủ thông tin.");
-            return;
+        let existingWorkerIndex = -1;
+        for (let i = 0; i < workers.length; i++) {
+            if (workers[i].name === name && workers[i].birthday === birthday) {
+                existingWorkerIndex = i;
+                break;
+            }
         }
 
-        let existingWorkerIndex = workers.findIndex(worker => worker.name === name && worker.birthday === birthday);
-
         if (existingWorkerIndex !== -1) {
-
             workers[existingWorkerIndex] = new Worker(workers[existingWorkerIndex].id, name, birthday, address, salary, position);
         } else {
-
             workerCount++;
             const newWorker = new Worker(workerCount, name, birthday, address, salary, position);
             workers.push(newWorker);
         }
-
         updateTable();
-
     }
 
     function updateTable() {
@@ -128,24 +124,25 @@
     }
 
     function deleteWorker(id) {
-        const index = workers.findIndex(worker => worker.id === id);
-        if (index !== -1) {
-            workers.splice(index, 1);
-            updateTable();
-            console.log("Công nhân đã được xóa thành công!");
-        } else {
-            console.log("Không tìm thấy công nhân với STT này.");
+        for (let i = 0; i < workers.length; i++) {
+            if (workers[i].id === id) {
+                workers.splice(i, 1);
+                updateTable();
+                return;
+            }
         }
     }
 
     function editWorker(id) {
-        let worker = workers.find(worker => worker.id === id);
-        if (worker) {
-            document.getElementById("name").value = worker.name;
-            document.getElementById("birthday").value = worker.birthday;
-            document.getElementById("address").value = worker.address;
-            document.getElementById("salary").value = worker.salary;
-            document.getElementById("position").value = worker.position;
+        for (let i = 0; i < workers.length; i++) {
+            if (workers[i].id === id) {
+                document.getElementById("name").value = workers[i].name;
+                document.getElementById("birthday").value = workers[i].birthday;
+                document.getElementById("address").value = workers[i].address;
+                document.getElementById("salary").value = workers[i].salary;
+                document.getElementById("position").value = workers[i].position;
+                return;
+            }
         }
     }
 </script>

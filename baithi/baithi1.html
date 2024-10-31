@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function createArray() {
+        let n;
+        do {
+            n = +prompt("Mời nhập số phần tử trong mảng (tối đa 50)");
+        } while (isNaN(n) || !Number.isInteger(n) || n > 50 || n <= 0);
+
+        let numbers = [];
+        for (let i = 0; i < n; i++) {
+            let num;
+            do {
+                num = +prompt(`Mời nhập phần tử số nguyên thứ ${i + 1}`);
+            } while (isNaN(num) || !Number.isInteger(num));
+            numbers.push(num);
+        }
+        document.write(`mảng mới tạo là ${numbers}<br>`)
+        return numbers;
+    }
+
+    function averageDivisibleBy3(numbers) {
+        let divisibleBy3 = [];
+        for (let i = 0; i < numbers.length; i++) {
+            if (numbers[i] % 3 === 0) {
+                divisibleBy3.push(numbers[i]);
+            }
+        }
+        if (divisibleBy3.length === 0) {
+            console.log("Không có số nào trong mảng chia hết cho 3.");
+            return;
+        }
+        let sum = 0;
+        for (let i = 0; i < divisibleBy3.length; i++) {
+            sum += divisibleBy3[i];
+        }
+        let average = sum / divisibleBy3.length;
+        document.write("Trung bình cộng các số chia hết cho 3 là: " + average);
+    }
+
+    let numbers = createArray();
+    averageDivisibleBy3(numbers);
+</script>
+</body>
+</html>

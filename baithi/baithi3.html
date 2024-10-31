@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function isLeapYear(year) {
+        return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+    }
+
+    function getDaysInMonth(month, year) {
+        let daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        if (month === 2 && isLeapYear(year)) {
+            return 29;
+        }
+        return daysInMonth[month - 1];
+    }
+
+    function checkMonthYearFormat(input) {
+        let parts = input.split('/');
+        if (parts.length !== 2) {
+            return false;
+        }
+
+        let month = parts[0];
+        let year = parts[1];
+        if (month.length !== 2 || isNaN(month) || month < '01' || month > '12') {
+            return false;
+        }
+        if (year.length !== 4 || isNaN(year)) {
+            return false;
+        }
+        return true;
+    }
+
+    function getMonthYear() {
+        let input;
+        do {
+            input = prompt("Nhập tháng và năm theo định dạng mm/yyyy:");
+
+            if (!checkMonthYearFormat(input)) {
+                console.log("Định dạng không hợp lệ. Vui lòng nhập theo định dạng mm/yyyy.");
+            }
+        } while (!checkMonthYearFormat(input));
+
+        let [month, year] = input.split('/').map(Number);
+        let days = getDaysInMonth(month, year);
+        document.write(`Tháng ${month} năm ${year} có ${days} ngày.`);
+    }
+
+    getMonthYear();
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function findDifferences(array1, array2) {
+        let differences = []; // Mảng lưu các phần tử khác nhau
+        let maxLength = Math.max(array1.length, array2.length); // Độ dài lớn nhất trong hai mảng
+
+// Duyệt qua từng vị trí trong hai mảng
+        for (let i = 0; i < maxLength; i++) {
+            let value1, value2;
+
+// Kiểm tra nếu array1 có phần tử tại vị trí i
+            if (array1[i] !== undefined) {
+                value1 = array1[i];
+            } else {
+                value1 = null; // Nếu không có, gán giá trị null
+            }
+
+// Kiểm tra nếu array2 có phần tử tại vị trí i
+            if (array2[i] !== undefined) {
+                value2 = array2[i];
+            } else {
+                value2 = null; // Nếu không có, gán giá trị null
+            }
+
+
+// Nếu phần tử khác nhau, thêm vào mảng differences
+            if (value1 !== value2) {
+                differences.push({
+                    index: i,          // Vị trí khác nhau
+                    array1Value: value1, // Giá trị ở mảng 1
+                    array2Value: value2  // Giá trị ở mảng 2
+                });
+            }
+        }
+
+        return differences; // Trả về danh sách các phần tử khác nhau
+    }
+
+    // Ví dụ sử dụng
+    let array1 = [1, 2, 3, 4];
+    let array2 = [1, 2, 5, 4, 6];
+
+    let differences = findDifferences(array1, array2);
+
+    if (differences.length > 0) {
+        // Nếu có sự khác biệt, thông báo và liệt kê các phần tử khác nhau
+        console.log("Các phần tử khác nhau giữa hai mảng:");
+
+        // Duyệt qua từng phần tử khác nhau trong mảng differences
+        differences.forEach(function(difference) {
+            let position = difference.index;
+            let valueInArray1 = difference.array1Value;
+            let valueInArray2 = difference.array2Value;
+
+            // In ra vị trí và giá trị khác nhau trong mỗi mảng
+            console.log(
+                "Vị trí " + position +
+                ": Mảng 1 có giá trị " + valueInArray1 +
+                ", Mảng 2 có giá trị " + valueInArray2
+            );
+        });
+    } else {
+        // Nếu không có sự khác biệt nào, thông báo rằng hai mảng giống nhau
+        console.log("Hai mảng giống nhau.");
+    }
+
+</script>
+</body>
+</html>

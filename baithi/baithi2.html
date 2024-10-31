@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kiểm Tra Số Hoàn Hảo</title>
+</head>
+<body>
+<script>
+    function isPerfectNumber(n) {
+        let sum = 0;
+        for (let i = 1; i <= n / 2; i++) {
+            if (n % i === 0) {
+                sum += i;
+            }
+        }
+        return sum === n;
+    }
+
+    function checkPerfectNumber() {
+        let number;
+        do {
+            number = +prompt("Nhập vào một số nguyên dương:");
+        } while (isNaN(number) || number <= 0 || !Number.isInteger(number));
+        return isPerfectNumber(number);
+    }
+
+    let isPerfect = checkPerfectNumber();
+    document.write("Kết quả: " + isPerfect);
+</script>
+</body>
+</html>

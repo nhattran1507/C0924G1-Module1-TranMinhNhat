@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic Block Dude HTML Game</title>
+    <meta charset="UTF-8">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            background: #fafafa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        canvas {
+            border: 1px solid white;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+<canvas width="384" height="256" id="game"></canvas>
+<div>
+    <div><b>CONTROLS</b></div>
+    <div><b>Left / Right Arrow:</b> Move left / right</div>
+    <div><b>Down Arrow:</b> Pick up or drop block</div>
+    <button onclick="nextLevel()">Next Level</button>
+</div>
+<script>
+    const canvas = document.getElementById('game');
+    const context = canvas.getContext('2d');
+    const grid = 32;
+
+    let playerDir = { row: 0, col: 0 };
+    let playerPos = { row: 0, col: 0 };
+    let playerFacing = 1;
+    let rAF = null;
+    let carryingBlock = false;
+    let width = 0;
+    let currentLevelIndex = 0;
+
+    const types = { wall: '#', player: '@', block: '$', goal: '.', empty: ' ' };
+
+    // Define 10 levels
+    const levels = [
+        ` #    ##        ##
+          #                #
+         ##                 #
+         #.                  #
+         ##                   #
+          #           #  $    #
+          #           #$ $$@  #
+          #####   #############
+              #  $#
+              #####`,
+        ` ########
+         #     @ #
+         # $     #
+         ## #####.#
+         ## #     #
+         ## #     #
+         ## #######`,
+        ` #########
+         #@      #
+         #   $   #
+         # ####. #
+         #       #
+         #########`,
+        ` #####
+         #   #
+         #@ $ #
+         # ###.#
+         #     #
+         #######`,
+        `  #######
+          #     #
+          # @ $ #
+          ### ###
+          #     #
+          #.#####
+          #######`,
+        `   #######
+           #     #
+           # @ # #
+           # $   #
+           ###.####
+           #     #
+           #######`,
+        `  #######
+          #     #
+          #  @  #
+          #     #
+          ###$####
+          #  .   #
+          ########`,
+        ` ######
+          # @ #
+          #   #
+          # $ #
+          ## .##
+          ######`,
+        `   #####
+            #@  #
+            # $ #
+            ###.#
+            #    #
+            ######`,
+        ` #######
+          # .  #
+          # $  #
+          ###@ #
+          ######`
+    ];
+
+    // Load a level
+    function loadLevel(levelIndex) {
+        const level = levels[levelIndex];
+        const cells = [];
+        level.split('\n')
+            .filter(rowData => !!rowData)
+            .forEach((rowData, row) => {
+                cells[row] = [];
+                if (rowData.length > width) width = rowData.length;
+                rowData.split('').forEach((colData, col) => {
+                    cells[row][col] = colData;
+                    if (colData === types.player) playerPos = { row, col };
+                });
+            });
+        return cells;
+    }
+
+
+    let cells = loadLevel(currentLevelIndex);
+
+    function clamp(min, max, value) {
+        return Math.min(Math.max(min, value), max);
+    }
+
+    function move(startPos, endPos) {
+        const startCell = cells[startPos.row][startPos.col];
+        const endCell = cells[endPos.row][endPos.col];
+        const isPlayer = startCell === types.player;
+
+        cells[startPos.row][startPos.col] = types.empty;
+        cells[endPos.row][endPos.col] = isPlayer ? types.player : types.block;
+
+        playerFacing = endPos.col - startPos.col;
+
+        if (carryingBlock) {
+            cells[startPos.row - 1][startPos.col] = types.empty;
+            cells[endPos.row - 1][endPos.col] = types.block;
+        }
+    }
+
+    function loop() {
+        rAF = requestAnimationFrame(loop);
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        let row = playerPos.row + playerDir.row;
+        const col = playerPos.col + playerDir.col;
+        const cell = cells[row][col];
+        switch (cell) {
+            case types.empty:
+            case types.goal:
+                let rowBelow = row + 1 + playerDir.row;
+                let belowCell = cells[rowBelow][col];
+                while (belowCell === types.empty || belowCell == types.goal) {
+                    row = rowBelow;
+                    rowBelow = row + 1 + playerDir.row;
+                    belowCell = cells[rowBelow][col];
+                }
+                move(playerPos, { row, col });
+                playerPos.row = row;
+                playerPos.col = col;
+                if (cell === types.goal) cancelAnimationFrame(rAF);
+                break;
+
+            case types.block:
+            case types.wall:
+                const rowAbove = row - 1 + playerDir.row;
+                const nextCell = cells[rowAbove][col];
+                if (nextCell === types.empty || nextCell === types.goal) {
+                    move(playerPos, { row: rowAbove, col });
+                    playerPos.row = rowAbove;
+                    playerPos.col = col;
+                }
+                break;
+        }
+        playerDir = { row: 0, col: 0 };
+
+        const startRow = clamp(0, cells.length - 8, playerPos.row - 4);
+        const startCol = clamp(0, width - 12, playerPos.col - 6);
+        for (let row = startRow; row < cells.length; row++) {
+            for (let col = startCol; col < cells[row].length; col++) {
+                const cell = cells[row][col];
+                const drawRow = row - startRow;
+                const drawCol = col - startCol;
+
+                switch(cell) {
+                    case types.wall:
+                        context.fillRect(drawCol * grid, drawRow * grid, grid, grid);
+                        break;
+                    case types.block:
+                        context.strokeRect(drawCol * grid, drawRow * grid, grid, grid);
+                        break;
+                    case types.goal:
+                        context.strokeRect((drawCol + 0.2) * grid, drawRow * grid, grid - 12, grid);
+                        context.beginPath();
+                        context.arc((drawCol + 0.7) * grid, (drawRow + 0.5) * grid, 2, 0, Math.PI * 2);
+                        context.fill();
+                        break;
+                    case types.player:
+                        context.beginPath();
+                        context.arc((drawCol + 0.5) * grid, (drawRow + 0.3) * grid, 7, 0, Math.PI * 2);
+                        context.stroke();
+                        const x = (drawCol + (playerFacing < 0 ? 0.1 : 0.6)) * grid;
+                        context.fillRect(x, (drawRow + 0.15) * grid, grid / 3, 2);
+                        context.fillRect((drawCol + 0.48) * grid, (drawRow + 0.4) * grid, 2, grid / 2.5);
+                        context.fillRect((drawCol + 0.3) * grid, (drawRow + 0.6) * grid, grid / 2.5, 2);
+                        context.moveTo((drawCol + 0.5) * grid, (drawRow + 0.8) * grid);
+                        context.lineTo((drawCol + 0.65) * grid, (drawRow + 1) * grid);
+                        context.moveTo((drawCol + 0.5) * grid, (drawRow + 0.8) * grid);
+                        context.lineTo((drawCol + 0.35) * grid, (drawRow + 1) * grid);
+                        context.stroke();
+                }
+            }
+        }
+    }
+
+    function nextLevel() {
+        currentLevelIndex = (currentLevelIndex + 1) % levels.length;
+        cells = loadLevel(currentLevelIndex);
+        playerPos = { row: 0, col: 0 }; // Thiết lập lại vị trí người chơi
+        carryingBlock = false;           // Thiết lập lại trạng thái không cầm block
+        cancelAnimationFrame(rAF);        // Hủy animation cũ
+        requestAnimationFrame(loop);      // Bắt đầu lại animation
+    }
+
+    document.addEventListener('keydown', function(e) {
+        playerDir = { row: 0, col: 0 };
+        if (e.key === 'ArrowLeft') playerDir.col = -1;
+        else if (e.key === 'ArrowRight') playerDir.col = 1;
+        else if (e.key === 'ArrowDown') {
+            const nextCol = playerFacing + playerPos.col;
+            const nextCell = cells[playerPos.row][nextCol];
+            const cellAbove = cells[playerPos.row - 1][nextCol];
+
+            if (!carryingBlock && nextCell === types.block && cellAbove === types.empty) {
+                cells[playerPos.row][nextCol] = types.empty;
+                cells[playerPos.row - 1][playerPos.col] = types.block;
+                carryingBlock = true;
+            } else if (carryingBlock) {
+                let row = playerPos.row;
+                let rowBelow = row + 1;
+                let belowCell = cells[rowBelow][nextCol];
+                while (belowCell === types.empty && rowBelow < cells.length - 1) {
+                    row++;
+                    rowBelow = row + 1;
+                    belowCell = cells[rowBelow][nextCol];
+                }
+                if ((nextCell === types.wall || nextCell === types.block) && cellAbove === types.empty) row--;
+                cells[playerPos.row - 1][playerPos.col] = types.empty;
+                cells[row][nextCol] = types.block;
+                carryingBlock = false;
+            }
+        }
+    });
+
+    requestAnimationFrame(loop);
+</script>
+</body>
+</html>
